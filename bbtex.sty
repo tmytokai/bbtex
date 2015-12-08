@@ -1,0 +1,815 @@
+%%%%%%%%%%%%%%%%%%%%%%
+%
+% ブラックボード対応試験問題作成パッケージ
+% (c) 2014-2015 tokai[atmark]hakodate-ct.ac.jp
+% ライセンス GPL2
+%
+%%%%%%%%%%%%%%%%%%%%%%
+\NeedsTeXFormat{pLaTeX2e}
+
+\makeatletter
+
+%%%%%%%%%%%%%%%%%%%%%%
+% 剰余
+% 引数: {a}{b}
+% 説明: MOD@result = a % b
+\newcounter{MOD@i}
+\newcounter{MOD@j}
+\newcounter{MOD@result}
+%
+\newcommand{\MOD}[2]{%
+\setcounter{MOD@i}{#1}%
+\setcounter{MOD@j}{#1}%
+\divide \c@MOD@i by #2%
+\multiply \c@MOD@i by #2%
+\advance \c@MOD@j by -\c@MOD@i%
+\relax%  % カウンタをフラッシュ
+\setcounter{MOD@result}{\c@MOD@j}%
+% MOD = \the\c@MOD@result\\   %debug出力
+}
+
+%%%%%%%%%%%%%%%%%%%%%%
+% ベクトルの要素追加と値代入
+% 引数: {ベクトル名}{値}
+% 説明: 指定したベクトルに要素を追加して値を代入する
+%       useベクトル名 : ベクトルが存在するなら t
+%       sizeベクトル名 : ベクトルのサイズ
+\newcounter{APV@i}
+%
+\newcommand{\AppendVec}[2]{%
+\if t\@nameuse{use#1}\relax%
+\else%
+\global\@namedef{use#1}{t}%
+\global\@namedef{size#1}{0}%
+\fi%
+\setcounter{APV@i}{\@nameuse{size#1}}%
+\expandafter\protected@xdef\csname #1[\the\c@APV@i]\endcsname{#2}% protected@を付けないとprotectされたマクロも展開する
+% #1[\the\c@APV@i] = \@nameuse{#1[\the\c@APV@i]}\\   %debug出力
+\stepcounter{APV@i}%
+\expandafter\xdef\csname size#1\endcsname{\the\c@APV@i}%
+% size = \@nameuse{size#1}\\   %debug出力
+}
+
+%%%%%%%%%%%%%%%%%%%%%%
+% ベクトル消去
+% 引数: {ベクトル名}
+\newcommand{\ClearVec}[1]{%
+\if t\@nameuse{use#1}%
+\global\@namedef{use#1}{n}%
+\global\@namedef{size#1}{0}%
+\fi%
+}
+
+%%%%%%%%%%%%%%%%%%%%%%
+% ベクトル内の要素の交換
+% 引数: {ベクトル名}{要素番号1}{要素番号2}
+% TODO: エラーチェックする
+\newcommand{\SwapVec}[3]{%
+\protected@edef\SWP@tmp{\@nameuse{#1[#2]}}%
+\expandafter\protected@xdef\csname #1[#2]\endcsname{\@nameuse{#1[#3]}}% protected@を付けないとprotectされたマクロも展開する
+\expandafter\protected@xdef\csname #1[#3]\endcsname{\SWP@tmp}% protected@を付けないとprotectされたマクロも展開する
+}
+
+%%%%%%%%%%%%%%%%%%%%%%
+% ベクトルのコピー
+% 引数: {コピー元ベクトル名}{コピー先ベクトル名}
+\newcounter{CPV@i}
+\newcounter{CPV@n}
+%
+\newcommand{\CopyVec}[2]{%
+\if t\@nameuse{use#1}%
+\ClearVec{#2}
+\setcounter{CPV@i}{0}%
+\setcounter{CPV@n}{\@nameuse{size#1}}%
+\relax%  % カウンタをフラッシュ
+\@whilenum\c@CPV@i<\c@CPV@n\do{%
+\AppendVec{#2}{\@nameuse{#1[\the\c@CPV@i]}}%
+\stepcounter{CPV@i}}%
+\fi%
+}
+
+%%%%%%%%%%%%%%%%%%%%%%
+% ベクトルの指定した要素番号に値を代入
+% 引数: {ベクトル名}{要素番号}{値}
+% 説明: ベクトルが無ければ新規作成する
+%       指定した番号が無ければベクトルのサイズを増やしてから代入する
+\newcounter{SEV@i}
+\newcounter{SEV@j}
+%
+\newcommand{\SetVec}[3]{%
+\if t\@nameuse{use#1}\relax%
+\else%
+\AppendVec{#1}{0}%
+\fi%
+\setcounter{SEV@i}{#2}%
+\setcounter{SEV@j}{\@nameuse{size#1}}%
+\advance \c@SEV@j by -1%
+\relax%  % カウンタをフラッシュ
+% i = \the\c@SEV@i\\   %debug出力
+% j = \the\c@SEV@j\\   %debug出力
+\@whilenum\c@SEV@j<\c@SEV@i\do{%
+\AppendVec{#1}{0}%
+\stepcounter{SEV@j}}%
+% i = \the\c@SEV@i\\   %debug出力
+% j = \the\c@SEV@j\\   %debug出力
+\expandafter\protected@xdef\csname #1[\the\c@SEV@i]\endcsname{#3}% protected@を付けないとprotectされたマクロも展開する
+}
+
+%%%%%%%%%%%%%%%%%%%%%%
+% ベクトル内に指定した値が含まれているか調べる
+% 引数: {ベクトル名}{値}
+% 説明: 値が含まれていれば CMV@result に1、含まれて無ければ 0 が入る
+%       値が含まれていれば CMV@resulti に要素番号が入る
+\newcounter{CMV@i}
+\newcounter{CMV@n}
+\newcounter{CMV@result}
+\newcounter{CMV@resulti}
+%
+\newcommand{\CompareVec}[2]{%
+\setcounter{CMV@result}{0}%
+\if t\@nameuse{use#1}%
+\setcounter{CMV@i}{0}%
+\setcounter{CMV@n}{\@nameuse{size#1}}%
+\relax%  % カウンタをフラッシュ
+\@whilenum\c@CMV@i<\c@CMV@n\do{%
+\protected@edef\CMV@tmp{#2}%
+\protected@edef\CMV@tmpb{\@nameuse{#1[\the\c@CMV@i]}}%
+% \CMV@tmp - \CMV@tmpb\\ %debug出力
+\ifx \CMV@tmp\CMV@tmpb%
+\setcounter{CMV@result}{1}%
+\setcounter{CMV@resulti}{\c@CMV@i}%
+\setcounter{CMV@i}{\c@CMV@n}%
+\fi%
+\stepcounter{CMV@i}}%
+\fi%
+% result = \the\c@CMV@result \\%debug出力
+% resulti = \the\c@CMV@resulti \\%debug出力
+}
+
+%%%%%%%%%%%%%%%%%%%%%%
+% ベクトル要素のソート (選択ソート)
+% 引数: {ベクトル名}
+% 説明: ベクトルの値は数字であること
+\newcounter{SRT@i}
+\newcounter{SRT@j}
+\newcounter{SRT@k}
+\newcounter{SRT@l}
+\newcounter{SRT@m}
+\newcounter{SRT@n}
+%
+\newcommand{\SortVec}[1]{%
+\if t\@nameuse{use#1}%
+\setcounter{SRT@i}{1}%
+\setcounter{SRT@n}{\@nameuse{size#1}}%
+\@whilenum\c@SRT@i<\c@SRT@n\do{%
+% i = \the\c@SRT@i \\ %debug出力
+\setcounter{SRT@j}{\c@SRT@i}%
+\@whilenum\c@SRT@j>0\do{%
+\setcounter{SRT@k}{\c@SRT@j}%
+\advance \c@SRT@k by -1%
+\relax%  % カウンタをフラッシュ
+\setcounter{SRT@l}{\@nameuse{#1[\the\c@SRT@j]}}%
+\setcounter{SRT@m}{\@nameuse{#1[\the\c@SRT@k]}}%
+% #1[\the\c@SRT@j] = \the\c@SRT@l\\ %debug出力
+% #1[\the\c@SRT@k] = \the\c@SRT@m\\ %debug出力
+\ifnum \c@SRT@l<\c@SRT@m%
+\SwapVec{#1}{\the\c@SRT@j}{\the\c@SRT@k}%
+% swap! \\ %debug出力
+\else%
+\setcounter{SRT@j}{1}%
+\fi%
+\advance \c@SRT@j by -1%
+\relax%  % カウンタをフラッシュ
+}%
+\stepcounter{SRT@i}}%
+\fi%
+}
+
+%%%%%%%%%%%%%%%%%%%%%%
+% ベクトル要素表示
+\newcounter{SHV@i}
+\newcounter{SHV@n}
+%
+\newcommand{\ShowVec}[1]{%
+\if t\@nameuse{use#1}%
+\setcounter{SHV@i}{0}%
+\setcounter{SHV@n}{\@nameuse{size#1}}%
+\@whilenum\c@SHV@i<\c@SHV@n\do{%
+#1[\the\c@SHV@i/\the\c@SHV@n]=\@nameuse{#1[\the\c@SHV@i]}\\
+\stepcounter{SHV@i}}%
+\fi%
+}
+
+%%%%%%%%%%%%%%%%%%%%%%
+% 擬似乱数
+\newcounter{RND@i}
+\newcounter{RND@iy}
+\newcounter{RND@z}
+\newcounter{RND@m}
+\newcounter{RND@a}
+\newcounter{RND@q}
+\newcounter{RND@r}
+\newcounter{RND@rzpq}
+\newcounter{RND@rnd}
+%
+\setcounter{RND@z}{1}%
+\setcounter{RND@m}{2147483647}%
+\setcounter{RND@a}{48271}%
+\setcounter{RND@q}{44488}%
+\setcounter{RND@r}{3399}%
+%
+%%%%%%%%%%%%%%%%%%%%%%
+% 擬似乱数の種セット
+\newcommand{\SEED}[1]{%
+\setcounter{RND@z}{#1}%
+\setcounter{RND@i}{0}%
+\@whilenum\c@RND@i<7\do{\RNDZERO\stepcounter{RND@i}}%
+\setcounter{RND@i}{0}%
+\@whilenum\c@RND@i<32\do{%
+\RNDZERO%
+\AppendVec{RND@iv}{\the\c@RND@z}%
+\stepcounter{RND@i}}%
+\setcounter{RND@iy}{\c@RND@z}%
+% \ShowVec{RND@iv} %debug出力
+}
+%
+%%%%%%%%%%%%%%%%%%%%%%
+% 最小基準擬似乱数(Schrage アルゴリズム)
+% 引数: 無し
+% 説明: RND@z に乱数が入る
+\newcommand{\RNDZERO}{%
+\setcounter{RND@rzpq}{\c@RND@z}%
+\divide \c@RND@rzpq by \c@RND@q%
+\multiply \c@RND@rzpq by \c@RND@r%
+\relax%  % カウンタをフラッシュ
+\MOD{\c@RND@z}{\c@RND@q}%
+\setcounter{RND@z}{\c@MOD@result}%
+\multiply \c@RND@z by \c@RND@a%
+\advance \c@RND@z by -\c@RND@rzpq%
+\relax%  % カウンタをフラッシュ
+\ifnum \c@RND@z<0 \advance \c@RND@z by \c@RND@m \fi%
+% RNDZERO = \the\c@RND@z \\ %debug出力
+}
+%%%%%%%%%%%%%%%%%%%%%%
+% 擬似乱数(Bays-Durham シャッフル法)
+% 引数: 無し
+% 説明: RND@rnd に乱数が入る
+\newcommand{\RND}{%
+\RNDZERO%
+\setcounter{RND@i}{\c@RND@iy}%
+\divide \c@RND@i by 67108864%
+\relax%  % カウンタをフラッシュ
+\setcounter{RND@iy}{\@nameuse{RND@iv[\the\c@RND@i]}}%
+\relax%  % カウンタをフラッシュ
+% RND@i=\the\c@RND@i\\  %debug出力
+% RND@iy=\the\c@RND@iy\\  %debug出力
+% RND@z=\the\c@RND@z\\  %debug出力
+\SetVec{RND@iv}{\c@RND@i}{\the\c@RND@z}%
+\setcounter{RND@rnd}{\c@RND@iy}%
+}
+
+%%%%%%%%%%%%%%%%%%%%%%
+% ベクトル内の要素のシャッフル(Fisher-Yates法)
+% 引数: {ベクトル名}
+\newcounter{SFV@i}
+\newcounter{SFV@j}
+%
+\newcommand{\ShuffleVec}[1]{%
+\if t\@nameuse{use#1}%
+\setcounter{SFV@i}{\@nameuse{size#1}}%
+\advance \c@SFV@i by -1%
+\relax%  % カウンタをフラッシュ
+\@whilenum\c@SFV@i>0\do{%
+\RND%
+\MOD{\c@RND@rnd}{\c@SFV@i}%
+\setcounter{SFV@j}{\c@MOD@result}%
+% i = \the\c@SFV@i \\ %debug出力
+% j = \the\c@SFV@j \\ %debug出力
+% rnd = \the\c@RND@rnd \\ %debug出力
+\SwapVec{#1}{\the\c@SFV@i}{\the\c@SFV@j}%
+\advance \c@SFV@i by -1%
+\relax%  % カウンタをフラッシュ
+}%
+\fi%
+}
+
+%%%%%%%%%%%%%%%%%%%%%%
+% ベクトルの内容をファイルに書きだす
+% 引数: {ファイル名}{ベクトル名}
+\newcounter{WFV@i}
+\newcounter{WFV@n}
+%
+\newcommand{\WriteFileVec}[2]{%
+\if t\@nameuse{use#2}%
+\newwrite\WFV@file%
+\immediate\openout\WFV@file=#1%
+\setcounter{WFV@i}{0}%
+\setcounter{WFV@n}{\@nameuse{size#2}}%
+\@whilenum\c@WFV@i<\c@WFV@n\do{%
+\immediate\write\WFV@file{%
+\@nameuse{#2[\the\c@WFV@i]}%
+}%
+\stepcounter{WFV@i}}%
+\immediate\closeout\WFV@file%
+\fi%
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\def\BB@class{}
+\def\BB@exam{}
+\def\BB@subject{}
+\def\BB@date{}
+\def\BB@teacher{}
+
+\newcounter{BB@section} % 大問番号
+\setcounter{BB@section}{0}
+
+\newcounter{BB@qnum} % 解答番号
+\setcounter{BB@qnum}{1}
+
+\newcounter{BB@totalscore} % 総得点
+\setcounter{BB@totalscore}{0}
+
+\newcounter{BB@analysis} % 1なら解析モード
+\setcounter{BB@analysis}{0}
+\newcounter{BB@totalpeople} % 受験人数
+\setcounter{BB@totalpeople}{0}
+
+\newcounter{BB@sc} % 得点
+\newcounter{BB@rnd} % 1 なら解答項目をランダムシャッフルする
+\newcounter{BB@anssize} % ランダムシャッフルする場合の解答項目数
+\newcounter{BB@showanswer} % 1 なら解答項目を画面表示する
+\newcounter{BB@dupcheck} % 1 なら解答項目の重複をチェックする
+
+% 雑用
+\newcounter{BB@i}
+\newcounter{BB@j}
+\newcounter{BB@k}
+\newcounter{BB@l}
+\newcounter{BB@n}
+\newcounter{BB@nn}
+
+%%%%%%%%%%%%%%%%%%%%%%
+% 機能：指定した問題番号の解答項目を出力 (内部命令)
+% 書式：\@printanswer[オプション]{問題番号}{改行番号}
+% 説明：指定した問題番号の解答項目を出力する。改行番号に指定した解答項目の前で改行する
+% オプション：
+% [a] 全て表示(デフォルト), [c] 正答のみ表示, [s] 解析モード
+\newcounter{BB@PA@i}
+\newcounter{BB@PA@j}
+\newcounter{BB@PA@k}
+\newcounter{BB@PA@n}
+%
+\newcommand{\@printanswer}[3][a]{%
+\par
+\begin{center}
+\renewcommand{\baselinestretch}{2}\selectfont
+\edef\BB@PA@tmp{BB@answer[#2]}%
+\edef\BB@PA@tmpb{BB@correctnum[#2]}%
+\setcounter{BB@PA@i}{0}% 解答項目番号
+\setcounter{BB@PA@n}{\@nameuse{size\BB@PA@tmp}}% 解答項目数
+\@whilenum\c@BB@PA@i<\c@BB@PA@n\do{%
+\setcounter{BB@PA@j}{1}% 1 なら項目を表示
+\setcounter{BB@PA@k}{0}% 1 なら項目をfboxに入れる
+\CompareVec{\BB@PA@tmpb}{\the\c@BB@PA@i}%
+\ifnum\c@CMV@result=1%
+\if#1s\setcounter{BB@PA@k}{1}\fi%
+\else%
+\if#1c\setcounter{BB@PA@j}{0}\fi%
+\fi%
+%
+\ifnum\c@BB@PA@j=1%
+\protected@edef\BB@PA@tmpc{(\@nameuse{BB@anstitle[\the\c@BB@PA@i]})}%
+\protected@edef\BB@PA@tmpd{\@nameuse{\BB@PA@tmp[\the\c@BB@PA@i]}}%
+% 改行
+\ifnum\c@BB@PA@i=#3\par\medskip\fi%
+%
+\ifnum\c@BB@PA@k=1%
+\fbox{\BB@PA@tmpc~\BB@PA@tmpd}%
+\else%
+\BB@PA@tmpc~\BB@PA@tmpd%
+\fi%
+% 解析モードの時は回答数も表示
+\if#1s%
+~[\@nameuse{BB@distrib-#2-\the\c@BB@PA@i}/\the\c@BB@totalpeople]%
+\fi%
+%
+\quad
+\fi% \ifnum\c@BB@PA@j=1
+\stepcounter{BB@PA@i}}% \@whilenum\c@BB@PA@i<\c@BB@PA@n
+\end{center}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%
+% 機能：初期化 (命令)
+% 書式：\initbb{乱数の種}{対象クラス}{試験名}{科目名}{日付}{教員}
+% 説明：初期化を行う。解答項目のシャッフルを行う場合には乱数の種は省略不可かつ試験ごとに変更する必要がある。
+\newcommand{\initbb}[6]{%
+\SEED{#1}
+\def\BB@class{#2}
+\def\BB@exam{#3}
+\def\BB@subject{#4}%
+\def\BB@date{#5}%
+\def\BB@teacher{#6}
+\@tfor\BB@tmp:=abcdefghijklmnopqrstuvwxyz\do{%
+\AppendVec{BB@anstitle}{\BB@tmp}% BB@anstitle[0]='a', BB@anstitle[1]='b', ...
+}%
+}
+
+%%%%%%%%%%%%%%%%%%%%%%
+% 機能：試験タイトル表示 (命令)
+% 書式：\bbtitle
+% 説明：試験タイトルを表示する。
+\newcommand{\bbtitle}{%
+\textbf{\BB@class\quad\BB@exam\quad\BB@subject\hfill\BB@date\quad\BB@teacher}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%
+% 機能：大問見出し (命令)
+% 書式：\bbsection{見出し}
+% 説明：大問番号と見出しを表示する。
+\newcommand{\bbsection}[1]{%
+\stepcounter{BB@section}%
+\AppendVec{BB@struct}{s}% BB@struct[] : 構造用ベクトル、's'は大問、'q'は問題
+\noindent \textbf{[\the\c@BB@section] #1}
+\par\bigskip
+}
+
+%%%%%%%%%%%%%%%%%%%%%%
+% 機能：問題作成 (環境)
+% 書式：\begin{makeq}{得点}{ランダムシャッフル}{解答項目数}
+% 説明：解答項目をランダムシャッフルする場合は2番目の引数を1、しないなら0を入れる。ランダムシャッフルしない場合は3番目の引数は無視する
+\newenvironment{makeq}[3]{%
+\AppendVec{BB@struct}{q}% BB@struct[] : 構造用ベクトル、's'は大問、'q'は問題
+\ClearVec{BB@correct}%
+\ClearVec{BB@incorrect}%
+\setcounter{BB@sc}{#1}%
+\setcounter{BB@rnd}{#2}%
+\setcounter{BB@anssize}{#3}%
+\setcounter{BB@showanswer}{1}%
+\setcounter{BB@dupcheck}{1}%
+\edef\BB@tmp{BB@paranswer[\the\c@BB@qnum]}%
+\AppendVec{\BB@tmp}{-1}%
+\AppendVec{\BB@tmp}{-1}%
+\AppendVec{\BB@tmp}{-1}%
+\global\advance \c@BB@totalscore by #1% def, edef, advance, multiply, divide は局所的
+\relax%
+\noindent %
+問題 \the\c@BB@qnum\quad [\the\c@BB@sc 点]%
+}%
+{%
+\expandafter\xdef\csname BB@score[\the\c@BB@qnum]\endcsname{\the\c@BB@sc}%
+%
+\ifnum\c@BB@rnd=1% ランダムにシャッフルして項目を作成
+\edef\BB@tmp{BB@answer[\the\c@BB@qnum]}%
+\edef\BB@tmpb{BB@correctnum[\the\c@BB@qnum]}%
+\ShuffleVec{BB@incorrect}%
+\setcounter{BB@i}{0}%
+\setcounter{BB@j}{0}%
+\@whilenum\c@BB@i<\c@BB@anssize\do{%
+\CompareVec{\BB@tmpb}{\the\c@BB@i}%
+\ifnum\c@CMV@result=1%
+\AppendVec{\BB@tmp}{\@nameuse{BB@correct[\the\c@CMV@resulti]}}%
+\else%
+\AppendVec{\BB@tmp}{\@nameuse{BB@incorrect[\the\c@BB@j]}}%
+\stepcounter{BB@j}%
+\fi%
+\stepcounter{BB@i}}%
+\SortVec{\BB@tmpb}%
+\fi%
+% \ShowVec{\BB@tmp}% debug出力
+% \ShowVec{\BB@tmpb}% debug出力
+%
+% 出力
+\ifnum\c@BB@showanswer=1%
+\ifnum\c@BB@analysis=1%
+\@printanswer[s]{\the\c@BB@qnum}{\@nameuse{BB@paranswer[\the\c@BB@qnum][1]}}%
+\else%
+\@printanswer{\the\c@BB@qnum}{\@nameuse{BB@paranswer[\the\c@BB@qnum][0]}}%
+\fi%
+\fi%
+\par\medskip
+\stepcounter{BB@qnum}%
+}
+
+%%%%%%%%%%%%%%%%%%%%%%
+% 機能：問題番号表示 (命令)
+% 書式：\bbqnum
+% 説明：現在の問題番号を表示する。
+\newcommand{\bbqnum}{%
+\the\c@BB@qnum%
+}
+
+%%%%%%%%%%%%%%%%%%%%%%
+% 機能：解答項目を表示しない (命令)
+% 書式：\bbnoanswer
+% 説明：解答項目を表示しない。makeq 環境の中で指定する。
+\newcommand{\bbnoanswer}{%
+\ifnum\c@BB@analysis=0%
+\setcounter{BB@showanswer}{0}%
+\fi%
+}
+
+%%%%%%%%%%%%%%%%%%%%%%
+% 機能：指定した解答項目の後で改行する (命令)
+% 書式：\bbparanswer{問題用紙}{解析モード}{解答用紙}
+% 説明：指定した解答項目の後で改行する。各用紙やモード別に指定出来る。改行しない場合は-1を指定する。makeq 環境の中で指定する。
+\newcommand{\bbparanswer}[3]{%
+\edef\BB@tmp{BB@paranswer[\the\c@BB@qnum]}%
+\SetVec{\BB@tmp}{0}{#1}%
+\SetVec{\BB@tmp}{1}{#2}%
+\SetVec{\BB@tmp}{2}{#3}%
+% \ShowVec{\BB@tmp} %debug出力
+}
+
+%%%%%%%%%%%%%%%%%%%%%%
+% 機能：解答項目の重複をチェックしない (命令)
+% 書式：\bbnodupcheck
+% 説明：解答項目の重複をチェックしない。makeq 環境の中で指定する。
+\newcommand{\bbnodupcheck}{%
+\setcounter{BB@dupcheck}{0}%
+}
+
+%%%%%%%%%%%%%%%%%%%%%%
+% 機能：正答の指定 (命令)
+% 書式：\cor{値}
+% 説明：makeq環境の中でincor命令とセットで使用する。正答が1つの場合は多肢選択、2つ以上の場合は複数回答問題となる。項目をランダムシャッフルしない場合はcorとincorの順と数に従って項目を作成する。ランダムシャッフルする場合はcorとincorの順番を無視する。
+\newcommand{\cor}[1]{%
+\edef\BB@tmp{BB@answer[\the\c@BB@qnum]}%
+\edef\BB@tmpb{BB@correctnum[\the\c@BB@qnum]}%
+%
+\ifnum\c@BB@rnd=1% ランダムシャッフル
+%
+\ifnum\c@BB@dupcheck=1% 重複チェック
+\CompareVec{BB@correct}{#1}%
+\ifnum\c@CMV@result=0%
+\CompareVec{BB@incorrect}{#1}%
+\ifnum\c@CMV@result=0%
+\AppendVec{BB@correct}{#1}%
+\else%
+\AppendVec{BB@correct}{エラー[cor]:重複(#1)}%
+\fi%
+\else%
+\AppendVec{BB@correct}{エラー[cor]:重複(#1)}%
+\fi%
+\else%
+\AppendVec{BB@correct}{#1}%
+\fi%
+%
+\setcounter{BB@i}{0}%
+\@whilenum\c@BB@i<1\do{%
+\RND%
+\MOD{\c@RND@rnd}{\c@BB@anssize}%
+\CompareVec{\BB@tmpb}{\the\c@MOD@result}%
+\ifnum\c@CMV@result=1\relax\else\stepcounter{BB@i}\fi%
+}%
+\AppendVec{\BB@tmpb}{\the\c@MOD@result}%
+% ランダムシャッフル終わり
+%
+\else% 順番通り
+\if t\@nameuse{use\BB@tmp}%
+\AppendVec{\BB@tmpb}{\@nameuse{size\BB@tmp}}%
+\else%
+\AppendVec{\BB@tmpb}{0}%
+\fi%
+%
+\ifnum\c@BB@dupcheck=1% 重複チェック
+\CompareVec{\BB@tmp}{#1}%
+\ifnum\c@CMV@result=0%
+\AppendVec{\BB@tmp}{#1}%
+\else%
+\AppendVec{\BB@tmp}{エラー[cor]:重複(#1)}%
+\fi%
+\else%
+\AppendVec{\BB@tmp}{#1}%
+\fi%
+\fi% 順番通り終わり
+}
+
+%%%%%%%%%%%%%%%%%%%%%%
+% 機能：誤答の指定 (命令)
+% 書式：\incor{値}
+% 説明：makeq環境の中でcor命令とセットで使用する。項目をランダムシャッフルする場合、incorは(makeqの引数で指定した項目数 - corの数)以上を指定できる。またcorとincorの順番は無視する。
+\newcommand{\incor}[1]{%
+\ifnum\c@BB@rnd=1% ランダムシャッフル
+\ifnum\c@BB@dupcheck=1% 重複チェック
+\CompareVec{BB@correct}{#1}%
+\ifnum\c@CMV@result=0%
+\CompareVec{BB@incorrect}{#1}%
+\ifnum\c@CMV@result=0%
+\AppendVec{BB@incorrect}{#1}%
+\else%
+\AppendVec{BB@incorrect}{エラー[incor]:重複(#1)}%
+\fi%
+\else%
+\AppendVec{BB@incorrect}{エラー[incor]:重複(#1)}%
+\fi%
+\else%
+\AppendVec{BB@incorrect}{#1}%
+\fi%
+% ランダムシャッフル終わり
+%
+\else% 順番通り
+\edef\BB@tmp{BB@answer[\the\c@BB@qnum]}%
+\ifnum\c@BB@dupcheck=1% 重複チェック
+\CompareVec{\BB@tmp}{#1}%
+\ifnum\c@CMV@result=0%
+\AppendVec{\BB@tmp}{#1}%
+\else%
+\AppendVec{\BB@tmp}{エラー[incor]:重複(#1)}%
+\fi%
+\else%
+\AppendVec{\BB@tmp}{#1}%
+\fi%
+\fi% 順番通り終わり
+}
+
+%%%%%%%%%%%%%%%%%%%%%%
+% 機能：正答にラベルを付ける (命令)
+% 書式：\clabel[オプション]{ラベル名}{値}
+% オプション：
+% [l] ラベル名だけ表示(デフォルト), [f] ラベル名をfboxで囲む, [n] 何も表示しない
+% 説明：makeq環境外で正答を指定する際にその値にラベルを付ける。cref命令と組み合わせて使用する。オプションでclabelのある場所に何を表示するか指定できる。
+\newcommand{\clabel}[3][l]{%
+\relax% 入れないとifmmodeが正しく動かない
+\ifmmode%
+\global\@namedef{BB@label#2}{$#3$}%
+\else%
+\global\@namedef{BB@label#2}{#3}%
+\fi%
+\global\@namedef{BB@uselabel#2}{t}%
+\if#1l%
+(#2)%
+\fi%
+\if#1f%
+\fbox{(#2)}%
+\fi%
+}
+
+%%%%%%%%%%%%%%%%%%%%%%
+% 機能：正答に現在の問題番号のラベルを付ける (命令)
+% 書式：\clabelqnum[オプション]{オフセット}{値}
+% 説明：clabel命令のラベルとして「現在の問題番号 + オフセット」の値を指定する。それ以外はclabel命令と同じ動作をする。
+\newcounter{BB@CQ@i}
+\newcommand{\clabelqnum}[3][l]{%
+\setcounter{BB@CQ@i}{\c@BB@qnum}%
+\advance \c@BB@CQ@i by #2%
+\clabel[#1]{\the\c@BB@CQ@i}{#3}%
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%
+% 機能：ラベルを付けた正答を指定 (命令)
+% 書式：\cref{ラベル名}
+% 説明：makeq環境内でclabel命令でラベルを付けた正答を指定する。それ以外はcor命令と同じ動作をする。
+\newcommand{\cref}[1]{%
+\if t\@nameuse{BB@uselabel#1}%
+\cor{\@nameuse{BB@label#1}}%
+\else%
+\cor{エラー[cref]:ラベル指定無し}%
+\fi%
+}
+
+%%%%%%%%%%%%%%%%%%%%%%
+% 機能：現在の問題番号のラベルを付けた正答を指定 (命令)
+% 書式：\crefqnum
+% 説明：cref命令のラベルとして「現在の問題番号 」の値を指定する。それ以外はcref命令と同じ動作をする。
+\newcommand{\crefqnum}{%
+\cref{\the\c@BB@qnum}%
+}
+
+%%%%%%%%%%%%%%%%%%%%%%
+% 機能：合計得点表示 (命令)
+% 書式：\totalscore
+% 説明：合計得点を右詰めで表示する。
+\newcommand{\totalscore}{%
+\par\bigskip
+\begin{flushright}
+\textbf{\fbox{計 \the\c@BB@totalscore 点}}
+\end{flushright}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%
+% 機能：解答用紙・模範解答作成 (命令)
+% 書式：\makeanswersheet[オプション]{改頁する問題番号}
+% オプション：
+% [a] 解答用紙作成(デフォルト), [c] 模範解答作成
+% 説明：オフライン用の解答用紙又は模範解答を作成する。改頁してから2段組で解答用紙を作成する。引数で指定した問題番号の後に更に改頁を入れる。
+\newcommand{\makeanswersheet}[2][a]{%
+\twocolumn[%
+\bbtitle
+\begin{flushright}
+\textbf{%
+\if#1a%
+番号\hspace{4em} 名前\hfill \fbox{計算・解答用紙\quad\qquad  点／ \the\c@BB@totalscore 点}
+\else%
+\fbox{模範解答\quad  \the\c@BB@totalscore 点／ \the\c@BB@totalscore 点}
+\fi%
+}
+\end{flushright}
+]
+{\footnotesize
+% \ShowVec{BB@struct} %debug出力
+\setcounter{BB@i}{0}% ループ用
+\setcounter{BB@n}{\@nameuse{sizeBB@struct}}%
+\setcounter{BB@j}{0}% 大問番号
+\setcounter{BB@k}{0}% 問題番号
+\@whilenum\c@BB@i<\c@BB@n\do{%
+\if s\@nameuse{BB@struct[\the\c@BB@i]}%
+\stepcounter{BB@j}%
+\noindent \textbf{[\the\c@BB@j]}
+\par\medskip
+\fi%
+\if q\@nameuse{BB@struct[\the\c@BB@i]}%
+\stepcounter{BB@k}%
+\noindent%
+問題 \the\c@BB@k\quad [\@nameuse{BB@score[\the\c@BB@k]} 点]%
+\if#1c%
+\@printanswer[c]{\the\c@BB@k}{-1}% 模範解答
+\else%
+\@printanswer{\the\c@BB@k}{\@nameuse{BB@paranswer[\the\c@BB@k][2]}}% 解答用紙
+\fi%
+\ifnum\c@BB@k=#2\newpage\else\par\smallskip\fi%
+\fi%
+\stepcounter{BB@i}}%
+}
+\onecolumn
+}
+
+%%%%%%%%%%%%%%%%%%%%%%
+% 機能：ブラックボードアップロード用バッチファイル作成 (命令)
+% 書式：\makeanswerfile{ファイル名}
+% 説明：ブラックボードで問題を作成する際にアップロードするバッチファイルを作成する。
+% 注意：現在ははタブコードの代わりに文字列 _TAB_ を出力しているので、 sed -e "s/_TAB_/\t/g" bb-tmp.txt > batch.txt の様に_TAB_をタブに置き換えてからアップロードする必要がある。
+\newcommand{\makeanswerfile}[1]{%
+% \ShowVec{BB@struct} %debug出力
+\setcounter{BB@i}{0}% ループ用
+\setcounter{BB@n}{\@nameuse{sizeBB@struct}}%
+\setcounter{BB@k}{0}% 問題番号
+\@whilenum\c@BB@i<\c@BB@n\do{%
+%
+\if q\@nameuse{BB@struct[\the\c@BB@i]}%
+\stepcounter{BB@k}%
+\edef\BB@tmp{BB@answer[\the\c@BB@k]}%
+\edef\BB@tmpb{BB@correctnum[\the\c@BB@k]}%
+\setcounter{BB@nn}{\@nameuse{size\BB@tmpb}}%
+\ifnum\c@BB@nn=1%
+\edef\BB@tmpc{MC}% 多肢選択
+\else%
+\edef\BB@tmpc{MA}% 複数回答
+\fi%
+\edef\BB@tmpc{\BB@tmpc _TAB_<span style="color: white;">}%
+\edef\BB@tmpc{\BB@tmpc\the\c@BB@k}%
+\edef\BB@tmpc{\BB@tmpc</span>}%
+\setcounter{BB@l}{0}%
+\setcounter{BB@nn}{\@nameuse{size\BB@tmp}}%
+\@whilenum\c@BB@l<\c@BB@nn\do{%
+\edef\BB@tmpc{\BB@tmpc _TAB_(\@nameuse{BB@anstitle[\the\c@BB@l]})}%
+\CompareVec{\BB@tmpb}{\the\c@BB@l}%
+\ifnum\c@CMV@result=1%
+\edef\BB@tmpc{\BB@tmpc _TAB_correct}%
+\else%
+\edef\BB@tmpc{\BB@tmpc _TAB_incorrect}%
+\fi%
+\stepcounter{BB@l}}%
+\AppendVec{BB@tmpvec}{\BB@tmpc}%
+\fi%
+\stepcounter{BB@i}}%
+\WriteFileVec{#1}{BB@tmpvec}%
+}
+
+%%%%%%%%%%%%%%%%%%%%%%
+% 機能：解析モード (命令)
+% 書式：\analysismode{受験人数}
+% 説明：解析モードに変更する。
+\newcommand{\analysismode}[1]{%
+\setcounter{BB@analysis}{1}%
+\setcounter{BB@totalpeople}{#1}%
+}
+
+%%%%%%%%%%%%%%%%%%%%%%
+% 機能：解答項目を選択した人数 (命令)
+% 書式：\distrib{解答番号}{解答項目番号}{人数}
+% 説明：解析モードで使う。解答項目を選択した人数をセットする。
+% distrib.sh と dist-template.ods を使ってデータを作成する(詳しくはそれらの中の説明参照)
+% ランダムシャッフルモードでも指定順に表示する。
+\newcommand{\distrib}[3]{%
+\global\@namedef{BB@distrib-#1-#2}{#3}%
+}
+
+%%%%%%%%%%%%%%%%%%%%%%
+% 機能：解析モードでのコメント (命令)
+% 書式：\analysiscomment{コメント1}{コメント2}
+% 説明：解析モード時はコメント1を表示する。そうでない時はコメント2を表示する。
+\newcommand{\analysiscomment}[2]{%
+\ifnum\c@BB@analysis=1%
+#1%
+\else%
+#2%
+\fi%
+}
+
+\makeatother

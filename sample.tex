@@ -1,0 +1,126 @@
+\documentclass[a4paper]{article}
+\usepackage{bbtex}
+\usepackage{amsmath}
+
+% 用紙サイズは自分で好きなように決める
+\pagestyle{empty}
+\hoffset = -1in
+\voffset = -1in
+\topmargin = 15mm
+\headsep = 0mm
+\oddsidemargin = 15mm
+\evensidemargin = 15mm
+\textwidth = 180mm
+\textheight = 267mm
+
+\begin{document}
+%
+% 初期化
+% 1番目の引数は乱数の種なので日時等を入れると良い
+\initbb{2015120801}{生産工学科1年}{前期期末試験}{テスト}{平成27年12月8日}{高専太郎}
+%
+% コメントを外すと解析モードになる
+% カッコの中は受験人数
+% \analysismode{10} 
+%
+% 解答項目分布の解析結果の読み込み
+% データは analysis.sh と analysis.ods を組み合わせて作る
+% 詳しくはマニュアル及び analysis.sh と analysis.ods 内の説明を参照
+% \analysiscomment の中に入れておくと通常時に余計なメモリを食わなくて良い
+\analysiscomment{% 実際のデータを使用したい場合は以下の例を消して analysis.ods 内のコードをコピー
+\distrib{1}{0}{2}\distrib{2}{0}{3}\distrib{3}{0}{3}\distrib{4}{0}{1}\distrib{5}{0}{0}\distrib{6}{0}{2}
+\distrib{1}{1}{7}\distrib{2}{1}{4}\distrib{3}{1}{1}\distrib{4}{1}{0}\distrib{5}{1}{8}\distrib{6}{1}{2}
+\distrib{1}{2}{1}\distrib{2}{2}{10}\distrib{3}{2}{4}\distrib{4}{2}{3}\distrib{5}{2}{0}\distrib{6}{2}{3}
+\distrib{1}{3}{0}\distrib{2}{3}{2}\distrib{3}{3}{1}\distrib{4}{3}{4}\distrib{5}{3}{1}\distrib{6}{3}{1}
+\distrib{1}{4}{0}\distrib{2}{4}{1}\distrib{3}{4}{1}\distrib{4}{4}{2}\distrib{5}{4}{1}\distrib{6}{4}{2}
+}{}
+%
+\bbtitle % タイトル表示
+\par\bigskip
+%
+\analysiscomment{  % 解析モード時に表示
+\par\medskip
+\begin{center}
+\begin{tabular}{|c|c|c|}
+\hline
+平均点 & 標準偏差 & 受験人数 \\
+\hline
+50.1 & 1.05 & 10 \\
+\hline
+\end{tabular}
+\par\medskip
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+60〜50 点& 49 〜 30 点& 29 〜 0 点 \\
+\hline
+1 & 7 & 2 \\
+\hline
+\end{tabular}
+\end{center}
+}{}
+%
+\bbsection{以下の選択問題を答えよ。}
+%
+\begin{makeq}{10}{0}{0} % 2番目の引数が0の時は順番通りに解答項目を表示
+日本の首都を選べ。
+\incor{ソウル}\cor{東京}\incor{ワシントン}\incor{バンコク}\incor{北京}
+\end{makeq}
+%
+\begin{makeq}{10}{1}{5} % 2番目の引数を1にすると解答項目をランダムにシャッフルして表示
+アメリカの都市を2つ選べ。
+\cor{ニューヨーク}\cor{シカゴ}
+\incor{ソウル}\incor{バンコク}\incor{モスクワ}\incor{パリ}
+\end{makeq}
+%
+\bbsection{以下の穴埋め問題を答えよ。}
+%
+\begin{center}
+アメリカの首都は\clabel[f]{イ}{ワシントン}、中国の首都は\clabel[f]{ロ}{北京}である。% 正答にラベルを付ける
+\end{center}
+%
+\par\bigskip
+\begin{makeq}{10}{0}{0}
+(イ)に入る都市
+\incor{ソウル}\incor{東京}\cref{イ}\incor{バンコク}\incor{北京}
+\end{makeq}
+%
+\begin{makeq}{10}{0}{0}
+(ロ)に入る都市
+\incor{ソウル}\incor{東京}\incor{ワシントン}\incor{バンコク}\cref{ロ}
+\end{makeq}
+%
+\bbsection{以下の数式を完成させよ。}
+%
+\begin{align*}
+2+2 &= 4 \quad \clabelqnum[f]{0}{\times} \quad 1 \\ % 正答に問題番号のラベルを付ける
+&= 8 \quad \clabelqnum[f]{1}{\div} \quad 2
+\end{align*}
+\par\bigskip
+%
+\begin{makeq}{10}{1}{5}
+(\bbqnum)に入る数式を選べ。
+\crefqnum % makeq 環境外 でラベル付けした正答を使用
+\incor{$\int$}\incor{$\pm$}\incor{$\sin$}\incor{$\cos$}\incor{$\div$}
+\end{makeq}
+%
+\begin{makeq}{10}{1}{5}
+(\bbqnum)に入る数式を選べ。
+\crefqnum % makeq 環境外 でラベル付けした正答を使用
+\incor{$\int$}\incor{$\pm$}\incor{$\sin$}\incor{$\cos$}\incor{$\times$}
+\end{makeq}
+%
+\totalscore
+%
+\analysiscomment{}{ % 解析モードで無い時に実行
+%
+% \makeanswersheet{4} % 解答用紙
+%
+% \makeanswersheet[c]{4} % 模範解答
+%
+\makeanswerfile{bbtex.txt} % ブラックボード用の問題バッチファイル
+% タブコードの代わりに文字列 _TAB_ を出力しているので
+% sed -e "s/_TAB_/\t/g" bbtex.txt > batch.txt の様に_TAB_をタブに置き換える
+%
+}
+
+\end{document}
