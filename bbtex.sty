@@ -1,8 +1,8 @@
 %%%%%%%%%%%%%%%%%%%%%%
 %
-% ¥Ö¥é¥Ã¥¯¥Ü¡¼¥ÉÂĞ±ş»î¸³ÌäÂêºîÀ®¥Ñ¥Ã¥±¡¼¥¸
+% ãƒ–ãƒ©ãƒƒã‚¯ãƒœãƒ¼ãƒ‰å¯¾å¿œè©¦é¨“å•é¡Œä½œæˆãƒ‘ãƒƒã‚±ãƒ¼ã‚¸
 % (c) 2014-2015 tokai[atmark]hakodate-ct.ac.jp
-% ¥é¥¤¥»¥ó¥¹ GPL2
+% ãƒ©ã‚¤ã‚»ãƒ³ã‚¹ GPL2
 %
 %%%%%%%%%%%%%%%%%%%%%%
 \NeedsTeXFormat{pLaTeX2e}
@@ -10,9 +10,9 @@
 \makeatletter
 
 %%%%%%%%%%%%%%%%%%%%%%
-% ¾êÍ¾
-% °ú¿ô: {a}{b}
-% ÀâÌÀ: MOD@result = a % b
+% å‰°ä½™
+% å¼•æ•°: {a}{b}
+% èª¬æ˜: MOD@result = a % b
 \newcounter{MOD@i}
 \newcounter{MOD@j}
 \newcounter{MOD@result}
@@ -23,17 +23,17 @@
 \divide \c@MOD@i by #2%
 \multiply \c@MOD@i by #2%
 \advance \c@MOD@j by -\c@MOD@i%
-\relax%  % ¥«¥¦¥ó¥¿¤ò¥Õ¥é¥Ã¥·¥å
+\relax%  % ã‚«ã‚¦ãƒ³ã‚¿ã‚’ãƒ•ãƒ©ãƒƒã‚·ãƒ¥
 \setcounter{MOD@result}{\c@MOD@j}%
-% MOD = \the\c@MOD@result\\   %debug½ĞÎÏ
+% MOD = \the\c@MOD@result\\   %debugå‡ºåŠ›
 }
 
 %%%%%%%%%%%%%%%%%%%%%%
-% ¥Ù¥¯¥È¥ë¤ÎÍ×ÁÇÄÉ²Ã¤ÈÃÍÂåÆş
-% °ú¿ô: {¥Ù¥¯¥È¥ëÌ¾}{ÃÍ}
-% ÀâÌÀ: »ØÄê¤·¤¿¥Ù¥¯¥È¥ë¤ËÍ×ÁÇ¤òÄÉ²Ã¤·¤ÆÃÍ¤òÂåÆş¤¹¤ë
-%       use¥Ù¥¯¥È¥ëÌ¾ : ¥Ù¥¯¥È¥ë¤¬Â¸ºß¤¹¤ë¤Ê¤é t
-%       size¥Ù¥¯¥È¥ëÌ¾ : ¥Ù¥¯¥È¥ë¤Î¥µ¥¤¥º
+% ãƒ™ã‚¯ãƒˆãƒ«ã®è¦ç´ è¿½åŠ ã¨å€¤ä»£å…¥
+% å¼•æ•°: {ãƒ™ã‚¯ãƒˆãƒ«å}{å€¤}
+% èª¬æ˜: æŒ‡å®šã—ãŸãƒ™ã‚¯ãƒˆãƒ«ã«è¦ç´ ã‚’è¿½åŠ ã—ã¦å€¤ã‚’ä»£å…¥ã™ã‚‹
+%       useãƒ™ã‚¯ãƒˆãƒ«å : ãƒ™ã‚¯ãƒˆãƒ«ãŒå­˜åœ¨ã™ã‚‹ãªã‚‰ t
+%       sizeãƒ™ã‚¯ãƒˆãƒ«å : ãƒ™ã‚¯ãƒˆãƒ«ã®ã‚µã‚¤ã‚º
 \newcounter{APV@i}
 %
 \newcommand{\AppendVec}[2]{%
@@ -43,16 +43,16 @@
 \global\@namedef{size#1}{0}%
 \fi%
 \setcounter{APV@i}{\@nameuse{size#1}}%
-\expandafter\protected@xdef\csname #1[\the\c@APV@i]\endcsname{#2}% protected@¤òÉÕ¤±¤Ê¤¤¤Èprotect¤µ¤ì¤¿¥Ş¥¯¥í¤âÅ¸³«¤¹¤ë
-% #1[\the\c@APV@i] = \@nameuse{#1[\the\c@APV@i]}\\   %debug½ĞÎÏ
+\expandafter\protected@xdef\csname #1[\the\c@APV@i]\endcsname{#2}% protected@ã‚’ä»˜ã‘ãªã„ã¨protectã•ã‚ŒãŸãƒã‚¯ãƒ­ã‚‚å±•é–‹ã™ã‚‹
+% #1[\the\c@APV@i] = \@nameuse{#1[\the\c@APV@i]}\\   %debugå‡ºåŠ›
 \stepcounter{APV@i}%
 \expandafter\xdef\csname size#1\endcsname{\the\c@APV@i}%
-% size = \@nameuse{size#1}\\   %debug½ĞÎÏ
+% size = \@nameuse{size#1}\\   %debugå‡ºåŠ›
 }
 
 %%%%%%%%%%%%%%%%%%%%%%
-% ¥Ù¥¯¥È¥ë¾Ãµî
-% °ú¿ô: {¥Ù¥¯¥È¥ëÌ¾}
+% ãƒ™ã‚¯ãƒˆãƒ«æ¶ˆå»
+% å¼•æ•°: {ãƒ™ã‚¯ãƒˆãƒ«å}
 \newcommand{\ClearVec}[1]{%
 \if t\@nameuse{use#1}%
 \global\@namedef{use#1}{n}%
@@ -61,18 +61,18 @@
 }
 
 %%%%%%%%%%%%%%%%%%%%%%
-% ¥Ù¥¯¥È¥ëÆâ¤ÎÍ×ÁÇ¤Î¸ò´¹
-% °ú¿ô: {¥Ù¥¯¥È¥ëÌ¾}{Í×ÁÇÈÖ¹æ1}{Í×ÁÇÈÖ¹æ2}
-% TODO: ¥¨¥é¡¼¥Á¥§¥Ã¥¯¤¹¤ë
+% ãƒ™ã‚¯ãƒˆãƒ«å†…ã®è¦ç´ ã®äº¤æ›
+% å¼•æ•°: {ãƒ™ã‚¯ãƒˆãƒ«å}{è¦ç´ ç•ªå·1}{è¦ç´ ç•ªå·2}
+% TODO: ã‚¨ãƒ©ãƒ¼ãƒã‚§ãƒƒã‚¯ã™ã‚‹
 \newcommand{\SwapVec}[3]{%
 \protected@edef\SWP@tmp{\@nameuse{#1[#2]}}%
-\expandafter\protected@xdef\csname #1[#2]\endcsname{\@nameuse{#1[#3]}}% protected@¤òÉÕ¤±¤Ê¤¤¤Èprotect¤µ¤ì¤¿¥Ş¥¯¥í¤âÅ¸³«¤¹¤ë
-\expandafter\protected@xdef\csname #1[#3]\endcsname{\SWP@tmp}% protected@¤òÉÕ¤±¤Ê¤¤¤Èprotect¤µ¤ì¤¿¥Ş¥¯¥í¤âÅ¸³«¤¹¤ë
+\expandafter\protected@xdef\csname #1[#2]\endcsname{\@nameuse{#1[#3]}}% protected@ã‚’ä»˜ã‘ãªã„ã¨protectã•ã‚ŒãŸãƒã‚¯ãƒ­ã‚‚å±•é–‹ã™ã‚‹
+\expandafter\protected@xdef\csname #1[#3]\endcsname{\SWP@tmp}% protected@ã‚’ä»˜ã‘ãªã„ã¨protectã•ã‚ŒãŸãƒã‚¯ãƒ­ã‚‚å±•é–‹ã™ã‚‹
 }
 
 %%%%%%%%%%%%%%%%%%%%%%
-% ¥Ù¥¯¥È¥ë¤Î¥³¥Ô¡¼
-% °ú¿ô: {¥³¥Ô¡¼¸µ¥Ù¥¯¥È¥ëÌ¾}{¥³¥Ô¡¼Àè¥Ù¥¯¥È¥ëÌ¾}
+% ãƒ™ã‚¯ãƒˆãƒ«ã®ã‚³ãƒ”ãƒ¼
+% å¼•æ•°: {ã‚³ãƒ”ãƒ¼å…ƒãƒ™ã‚¯ãƒˆãƒ«å}{ã‚³ãƒ”ãƒ¼å…ˆãƒ™ã‚¯ãƒˆãƒ«å}
 \newcounter{CPV@i}
 \newcounter{CPV@n}
 %
@@ -81,7 +81,7 @@
 \ClearVec{#2}
 \setcounter{CPV@i}{0}%
 \setcounter{CPV@n}{\@nameuse{size#1}}%
-\relax%  % ¥«¥¦¥ó¥¿¤ò¥Õ¥é¥Ã¥·¥å
+\relax%  % ã‚«ã‚¦ãƒ³ã‚¿ã‚’ãƒ•ãƒ©ãƒƒã‚·ãƒ¥
 \@whilenum\c@CPV@i<\c@CPV@n\do{%
 \AppendVec{#2}{\@nameuse{#1[\the\c@CPV@i]}}%
 \stepcounter{CPV@i}}%
@@ -89,10 +89,10 @@
 }
 
 %%%%%%%%%%%%%%%%%%%%%%
-% ¥Ù¥¯¥È¥ë¤Î»ØÄê¤·¤¿Í×ÁÇÈÖ¹æ¤ËÃÍ¤òÂåÆş
-% °ú¿ô: {¥Ù¥¯¥È¥ëÌ¾}{Í×ÁÇÈÖ¹æ}{ÃÍ}
-% ÀâÌÀ: ¥Ù¥¯¥È¥ë¤¬Ìµ¤±¤ì¤Ğ¿·µ¬ºîÀ®¤¹¤ë
-%       »ØÄê¤·¤¿ÈÖ¹æ¤¬Ìµ¤±¤ì¤Ğ¥Ù¥¯¥È¥ë¤Î¥µ¥¤¥º¤òÁı¤ä¤·¤Æ¤«¤éÂåÆş¤¹¤ë
+% ãƒ™ã‚¯ãƒˆãƒ«ã®æŒ‡å®šã—ãŸè¦ç´ ç•ªå·ã«å€¤ã‚’ä»£å…¥
+% å¼•æ•°: {ãƒ™ã‚¯ãƒˆãƒ«å}{è¦ç´ ç•ªå·}{å€¤}
+% èª¬æ˜: ãƒ™ã‚¯ãƒˆãƒ«ãŒç„¡ã‘ã‚Œã°æ–°è¦ä½œæˆã™ã‚‹
+%       æŒ‡å®šã—ãŸç•ªå·ãŒç„¡ã‘ã‚Œã°ãƒ™ã‚¯ãƒˆãƒ«ã®ã‚µã‚¤ã‚ºã‚’å¢—ã‚„ã—ã¦ã‹ã‚‰ä»£å…¥ã™ã‚‹
 \newcounter{SEV@i}
 \newcounter{SEV@j}
 %
@@ -104,22 +104,22 @@
 \setcounter{SEV@i}{#2}%
 \setcounter{SEV@j}{\@nameuse{size#1}}%
 \advance \c@SEV@j by -1%
-\relax%  % ¥«¥¦¥ó¥¿¤ò¥Õ¥é¥Ã¥·¥å
-% i = \the\c@SEV@i\\   %debug½ĞÎÏ
-% j = \the\c@SEV@j\\   %debug½ĞÎÏ
+\relax%  % ã‚«ã‚¦ãƒ³ã‚¿ã‚’ãƒ•ãƒ©ãƒƒã‚·ãƒ¥
+% i = \the\c@SEV@i\\   %debugå‡ºåŠ›
+% j = \the\c@SEV@j\\   %debugå‡ºåŠ›
 \@whilenum\c@SEV@j<\c@SEV@i\do{%
 \AppendVec{#1}{0}%
 \stepcounter{SEV@j}}%
-% i = \the\c@SEV@i\\   %debug½ĞÎÏ
-% j = \the\c@SEV@j\\   %debug½ĞÎÏ
-\expandafter\protected@xdef\csname #1[\the\c@SEV@i]\endcsname{#3}% protected@¤òÉÕ¤±¤Ê¤¤¤Èprotect¤µ¤ì¤¿¥Ş¥¯¥í¤âÅ¸³«¤¹¤ë
+% i = \the\c@SEV@i\\   %debugå‡ºåŠ›
+% j = \the\c@SEV@j\\   %debugå‡ºåŠ›
+\expandafter\protected@xdef\csname #1[\the\c@SEV@i]\endcsname{#3}% protected@ã‚’ä»˜ã‘ãªã„ã¨protectã•ã‚ŒãŸãƒã‚¯ãƒ­ã‚‚å±•é–‹ã™ã‚‹
 }
 
 %%%%%%%%%%%%%%%%%%%%%%
-% ¥Ù¥¯¥È¥ëÆâ¤Ë»ØÄê¤·¤¿ÃÍ¤¬´Ş¤Ş¤ì¤Æ¤¤¤ë¤«Ä´¤Ù¤ë
-% °ú¿ô: {¥Ù¥¯¥È¥ëÌ¾}{ÃÍ}
-% ÀâÌÀ: ÃÍ¤¬´Ş¤Ş¤ì¤Æ¤¤¤ì¤Ğ CMV@result ¤Ë1¡¢´Ş¤Ş¤ì¤ÆÌµ¤±¤ì¤Ğ 0 ¤¬Æş¤ë
-%       ÃÍ¤¬´Ş¤Ş¤ì¤Æ¤¤¤ì¤Ğ CMV@resulti ¤ËÍ×ÁÇÈÖ¹æ¤¬Æş¤ë
+% ãƒ™ã‚¯ãƒˆãƒ«å†…ã«æŒ‡å®šã—ãŸå€¤ãŒå«ã¾ã‚Œã¦ã„ã‚‹ã‹èª¿ã¹ã‚‹
+% å¼•æ•°: {ãƒ™ã‚¯ãƒˆãƒ«å}{å€¤}
+% èª¬æ˜: å€¤ãŒå«ã¾ã‚Œã¦ã„ã‚Œã° CMV@result ã«1ã€å«ã¾ã‚Œã¦ç„¡ã‘ã‚Œã° 0 ãŒå…¥ã‚‹
+%       å€¤ãŒå«ã¾ã‚Œã¦ã„ã‚Œã° CMV@resulti ã«è¦ç´ ç•ªå·ãŒå…¥ã‚‹
 \newcounter{CMV@i}
 \newcounter{CMV@n}
 \newcounter{CMV@result}
@@ -130,11 +130,11 @@
 \if t\@nameuse{use#1}%
 \setcounter{CMV@i}{0}%
 \setcounter{CMV@n}{\@nameuse{size#1}}%
-\relax%  % ¥«¥¦¥ó¥¿¤ò¥Õ¥é¥Ã¥·¥å
+\relax%  % ã‚«ã‚¦ãƒ³ã‚¿ã‚’ãƒ•ãƒ©ãƒƒã‚·ãƒ¥
 \@whilenum\c@CMV@i<\c@CMV@n\do{%
 \protected@edef\CMV@tmp{#2}%
 \protected@edef\CMV@tmpb{\@nameuse{#1[\the\c@CMV@i]}}%
-% \CMV@tmp - \CMV@tmpb\\ %debug½ĞÎÏ
+% \CMV@tmp - \CMV@tmpb\\ %debugå‡ºåŠ›
 \ifx \CMV@tmp\CMV@tmpb%
 \setcounter{CMV@result}{1}%
 \setcounter{CMV@resulti}{\c@CMV@i}%
@@ -142,14 +142,14 @@
 \fi%
 \stepcounter{CMV@i}}%
 \fi%
-% result = \the\c@CMV@result \\%debug½ĞÎÏ
-% resulti = \the\c@CMV@resulti \\%debug½ĞÎÏ
+% result = \the\c@CMV@result \\%debugå‡ºåŠ›
+% resulti = \the\c@CMV@resulti \\%debugå‡ºåŠ›
 }
 
 %%%%%%%%%%%%%%%%%%%%%%
-% ¥Ù¥¯¥È¥ëÍ×ÁÇ¤Î¥½¡¼¥È (ÁªÂò¥½¡¼¥È)
-% °ú¿ô: {¥Ù¥¯¥È¥ëÌ¾}
-% ÀâÌÀ: ¥Ù¥¯¥È¥ë¤ÎÃÍ¤Ï¿ô»ú¤Ç¤¢¤ë¤³¤È
+% ãƒ™ã‚¯ãƒˆãƒ«è¦ç´ ã®ã‚½ãƒ¼ãƒˆ (é¸æŠã‚½ãƒ¼ãƒˆ)
+% å¼•æ•°: {ãƒ™ã‚¯ãƒˆãƒ«å}
+% èª¬æ˜: ãƒ™ã‚¯ãƒˆãƒ«ã®å€¤ã¯æ•°å­—ã§ã‚ã‚‹ã“ã¨
 \newcounter{SRT@i}
 \newcounter{SRT@j}
 \newcounter{SRT@k}
@@ -162,31 +162,31 @@
 \setcounter{SRT@i}{1}%
 \setcounter{SRT@n}{\@nameuse{size#1}}%
 \@whilenum\c@SRT@i<\c@SRT@n\do{%
-% i = \the\c@SRT@i \\ %debug½ĞÎÏ
+% i = \the\c@SRT@i \\ %debugå‡ºåŠ›
 \setcounter{SRT@j}{\c@SRT@i}%
 \@whilenum\c@SRT@j>0\do{%
 \setcounter{SRT@k}{\c@SRT@j}%
 \advance \c@SRT@k by -1%
-\relax%  % ¥«¥¦¥ó¥¿¤ò¥Õ¥é¥Ã¥·¥å
+\relax%  % ã‚«ã‚¦ãƒ³ã‚¿ã‚’ãƒ•ãƒ©ãƒƒã‚·ãƒ¥
 \setcounter{SRT@l}{\@nameuse{#1[\the\c@SRT@j]}}%
 \setcounter{SRT@m}{\@nameuse{#1[\the\c@SRT@k]}}%
-% #1[\the\c@SRT@j] = \the\c@SRT@l\\ %debug½ĞÎÏ
-% #1[\the\c@SRT@k] = \the\c@SRT@m\\ %debug½ĞÎÏ
+% #1[\the\c@SRT@j] = \the\c@SRT@l\\ %debugå‡ºåŠ›
+% #1[\the\c@SRT@k] = \the\c@SRT@m\\ %debugå‡ºåŠ›
 \ifnum \c@SRT@l<\c@SRT@m%
 \SwapVec{#1}{\the\c@SRT@j}{\the\c@SRT@k}%
-% swap! \\ %debug½ĞÎÏ
+% swap! \\ %debugå‡ºåŠ›
 \else%
 \setcounter{SRT@j}{1}%
 \fi%
 \advance \c@SRT@j by -1%
-\relax%  % ¥«¥¦¥ó¥¿¤ò¥Õ¥é¥Ã¥·¥å
+\relax%  % ã‚«ã‚¦ãƒ³ã‚¿ã‚’ãƒ•ãƒ©ãƒƒã‚·ãƒ¥
 }%
 \stepcounter{SRT@i}}%
 \fi%
 }
 
 %%%%%%%%%%%%%%%%%%%%%%
-% ¥Ù¥¯¥È¥ëÍ×ÁÇÉ½¼¨
+% ãƒ™ã‚¯ãƒˆãƒ«è¦ç´ è¡¨ç¤º
 \newcounter{SHV@i}
 \newcounter{SHV@n}
 %
@@ -201,7 +201,7 @@
 }
 
 %%%%%%%%%%%%%%%%%%%%%%
-% µ¼»÷Íğ¿ô
+% æ“¬ä¼¼ä¹±æ•°
 \newcounter{RND@i}
 \newcounter{RND@iy}
 \newcounter{RND@z}
@@ -219,7 +219,7 @@
 \setcounter{RND@r}{3399}%
 %
 %%%%%%%%%%%%%%%%%%%%%%
-% µ¼»÷Íğ¿ô¤Î¼ï¥»¥Ã¥È
+% æ“¬ä¼¼ä¹±æ•°ã®ç¨®ã‚»ãƒƒãƒˆ
 \newcommand{\SEED}[1]{%
 \setcounter{RND@z}{#1}%
 \setcounter{RND@i}{0}%
@@ -230,47 +230,47 @@
 \AppendVec{RND@iv}{\the\c@RND@z}%
 \stepcounter{RND@i}}%
 \setcounter{RND@iy}{\c@RND@z}%
-% \ShowVec{RND@iv} %debug½ĞÎÏ
+% \ShowVec{RND@iv} %debugå‡ºåŠ›
 }
 %
 %%%%%%%%%%%%%%%%%%%%%%
-% ºÇ¾®´ğ½àµ¼»÷Íğ¿ô(Schrage ¥¢¥ë¥´¥ê¥º¥à)
-% °ú¿ô: Ìµ¤·
-% ÀâÌÀ: RND@z ¤ËÍğ¿ô¤¬Æş¤ë
+% æœ€å°åŸºæº–æ“¬ä¼¼ä¹±æ•°(Schrage ã‚¢ãƒ«ã‚´ãƒªã‚ºãƒ )
+% å¼•æ•°: ç„¡ã—
+% èª¬æ˜: RND@z ã«ä¹±æ•°ãŒå…¥ã‚‹
 \newcommand{\RNDZERO}{%
 \setcounter{RND@rzpq}{\c@RND@z}%
 \divide \c@RND@rzpq by \c@RND@q%
 \multiply \c@RND@rzpq by \c@RND@r%
-\relax%  % ¥«¥¦¥ó¥¿¤ò¥Õ¥é¥Ã¥·¥å
+\relax%  % ã‚«ã‚¦ãƒ³ã‚¿ã‚’ãƒ•ãƒ©ãƒƒã‚·ãƒ¥
 \MOD{\c@RND@z}{\c@RND@q}%
 \setcounter{RND@z}{\c@MOD@result}%
 \multiply \c@RND@z by \c@RND@a%
 \advance \c@RND@z by -\c@RND@rzpq%
-\relax%  % ¥«¥¦¥ó¥¿¤ò¥Õ¥é¥Ã¥·¥å
+\relax%  % ã‚«ã‚¦ãƒ³ã‚¿ã‚’ãƒ•ãƒ©ãƒƒã‚·ãƒ¥
 \ifnum \c@RND@z<0 \advance \c@RND@z by \c@RND@m \fi%
-% RNDZERO = \the\c@RND@z \\ %debug½ĞÎÏ
+% RNDZERO = \the\c@RND@z \\ %debugå‡ºåŠ›
 }
 %%%%%%%%%%%%%%%%%%%%%%
-% µ¼»÷Íğ¿ô(Bays-Durham ¥·¥ã¥Ã¥Õ¥ëË¡)
-% °ú¿ô: Ìµ¤·
-% ÀâÌÀ: RND@rnd ¤ËÍğ¿ô¤¬Æş¤ë
+% æ“¬ä¼¼ä¹±æ•°(Bays-Durham ã‚·ãƒ£ãƒƒãƒ•ãƒ«æ³•)
+% å¼•æ•°: ç„¡ã—
+% èª¬æ˜: RND@rnd ã«ä¹±æ•°ãŒå…¥ã‚‹
 \newcommand{\RND}{%
 \RNDZERO%
 \setcounter{RND@i}{\c@RND@iy}%
 \divide \c@RND@i by 67108864%
-\relax%  % ¥«¥¦¥ó¥¿¤ò¥Õ¥é¥Ã¥·¥å
+\relax%  % ã‚«ã‚¦ãƒ³ã‚¿ã‚’ãƒ•ãƒ©ãƒƒã‚·ãƒ¥
 \setcounter{RND@iy}{\@nameuse{RND@iv[\the\c@RND@i]}}%
-\relax%  % ¥«¥¦¥ó¥¿¤ò¥Õ¥é¥Ã¥·¥å
-% RND@i=\the\c@RND@i\\  %debug½ĞÎÏ
-% RND@iy=\the\c@RND@iy\\  %debug½ĞÎÏ
-% RND@z=\the\c@RND@z\\  %debug½ĞÎÏ
+\relax%  % ã‚«ã‚¦ãƒ³ã‚¿ã‚’ãƒ•ãƒ©ãƒƒã‚·ãƒ¥
+% RND@i=\the\c@RND@i\\  %debugå‡ºåŠ›
+% RND@iy=\the\c@RND@iy\\  %debugå‡ºåŠ›
+% RND@z=\the\c@RND@z\\  %debugå‡ºåŠ›
 \SetVec{RND@iv}{\c@RND@i}{\the\c@RND@z}%
 \setcounter{RND@rnd}{\c@RND@iy}%
 }
 
 %%%%%%%%%%%%%%%%%%%%%%
-% ¥Ù¥¯¥È¥ëÆâ¤ÎÍ×ÁÇ¤Î¥·¥ã¥Ã¥Õ¥ë(Fisher-YatesË¡)
-% °ú¿ô: {¥Ù¥¯¥È¥ëÌ¾}
+% ãƒ™ã‚¯ãƒˆãƒ«å†…ã®è¦ç´ ã®ã‚·ãƒ£ãƒƒãƒ•ãƒ«(Fisher-Yatesæ³•)
+% å¼•æ•°: {ãƒ™ã‚¯ãƒˆãƒ«å}
 \newcounter{SFV@i}
 \newcounter{SFV@j}
 %
@@ -278,24 +278,24 @@
 \if t\@nameuse{use#1}%
 \setcounter{SFV@i}{\@nameuse{size#1}}%
 \advance \c@SFV@i by -1%
-\relax%  % ¥«¥¦¥ó¥¿¤ò¥Õ¥é¥Ã¥·¥å
+\relax%  % ã‚«ã‚¦ãƒ³ã‚¿ã‚’ãƒ•ãƒ©ãƒƒã‚·ãƒ¥
 \@whilenum\c@SFV@i>0\do{%
 \RND%
 \MOD{\c@RND@rnd}{\c@SFV@i}%
 \setcounter{SFV@j}{\c@MOD@result}%
-% i = \the\c@SFV@i \\ %debug½ĞÎÏ
-% j = \the\c@SFV@j \\ %debug½ĞÎÏ
-% rnd = \the\c@RND@rnd \\ %debug½ĞÎÏ
+% i = \the\c@SFV@i \\ %debugå‡ºåŠ›
+% j = \the\c@SFV@j \\ %debugå‡ºåŠ›
+% rnd = \the\c@RND@rnd \\ %debugå‡ºåŠ›
 \SwapVec{#1}{\the\c@SFV@i}{\the\c@SFV@j}%
 \advance \c@SFV@i by -1%
-\relax%  % ¥«¥¦¥ó¥¿¤ò¥Õ¥é¥Ã¥·¥å
+\relax%  % ã‚«ã‚¦ãƒ³ã‚¿ã‚’ãƒ•ãƒ©ãƒƒã‚·ãƒ¥
 }%
 \fi%
 }
 
 %%%%%%%%%%%%%%%%%%%%%%
-% ¥Ù¥¯¥È¥ë¤ÎÆâÍÆ¤ò¥Õ¥¡¥¤¥ë¤Ë½ñ¤­¤À¤¹
-% °ú¿ô: {¥Õ¥¡¥¤¥ëÌ¾}{¥Ù¥¯¥È¥ëÌ¾}
+% ãƒ™ã‚¯ãƒˆãƒ«ã®å†…å®¹ã‚’ãƒ•ã‚¡ã‚¤ãƒ«ã«æ›¸ãã ã™
+% å¼•æ•°: {ãƒ•ã‚¡ã‚¤ãƒ«å}{ãƒ™ã‚¯ãƒˆãƒ«å}
 \newcounter{WFV@i}
 \newcounter{WFV@n}
 %
@@ -324,27 +324,27 @@
 \def\BB@date{}
 \def\BB@teacher{}
 
-\newcounter{BB@section} % ÂçÌäÈÖ¹æ
+\newcounter{BB@section} % å¤§å•ç•ªå·
 \setcounter{BB@section}{0}
 
-\newcounter{BB@qnum} % ²òÅúÈÖ¹æ
+\newcounter{BB@qnum} % è§£ç­”ç•ªå·
 \setcounter{BB@qnum}{1}
 
-\newcounter{BB@totalscore} % ÁíÆÀÅÀ
+\newcounter{BB@totalscore} % ç·å¾—ç‚¹
 \setcounter{BB@totalscore}{0}
 
-\newcounter{BB@analysis} % 1¤Ê¤é²òÀÏ¥â¡¼¥É
+\newcounter{BB@analysis} % 1ãªã‚‰è§£æãƒ¢ãƒ¼ãƒ‰
 \setcounter{BB@analysis}{0}
-\newcounter{BB@totalpeople} % ¼õ¸³¿Í¿ô
+\newcounter{BB@totalpeople} % å—é¨“äººæ•°
 \setcounter{BB@totalpeople}{0}
 
-\newcounter{BB@sc} % ÆÀÅÀ
-\newcounter{BB@rnd} % 1 ¤Ê¤é²òÅú¹àÌÜ¤ò¥é¥ó¥À¥à¥·¥ã¥Ã¥Õ¥ë¤¹¤ë
-\newcounter{BB@anssize} % ¥é¥ó¥À¥à¥·¥ã¥Ã¥Õ¥ë¤¹¤ë¾ì¹ç¤Î²òÅú¹àÌÜ¿ô
-\newcounter{BB@showanswer} % 1 ¤Ê¤é²òÅú¹àÌÜ¤ò²èÌÌÉ½¼¨¤¹¤ë
-\newcounter{BB@dupcheck} % 1 ¤Ê¤é²òÅú¹àÌÜ¤Î½ÅÊ£¤ò¥Á¥§¥Ã¥¯¤¹¤ë
+\newcounter{BB@sc} % å¾—ç‚¹
+\newcounter{BB@rnd} % 1 ãªã‚‰è§£ç­”é …ç›®ã‚’ãƒ©ãƒ³ãƒ€ãƒ ã‚·ãƒ£ãƒƒãƒ•ãƒ«ã™ã‚‹
+\newcounter{BB@anssize} % ãƒ©ãƒ³ãƒ€ãƒ ã‚·ãƒ£ãƒƒãƒ•ãƒ«ã™ã‚‹å ´åˆã®è§£ç­”é …ç›®æ•°
+\newcounter{BB@showanswer} % 1 ãªã‚‰è§£ç­”é …ç›®ã‚’ç”»é¢è¡¨ç¤ºã™ã‚‹
+\newcounter{BB@dupcheck} % 1 ãªã‚‰è§£ç­”é …ç›®ã®é‡è¤‡ã‚’ãƒã‚§ãƒƒã‚¯ã™ã‚‹
 
-% »¨ÍÑ
+% é›‘ç”¨
 \newcounter{BB@i}
 \newcounter{BB@j}
 \newcounter{BB@k}
@@ -353,11 +353,11 @@
 \newcounter{BB@nn}
 
 %%%%%%%%%%%%%%%%%%%%%%
-% µ¡Ç½¡§»ØÄê¤·¤¿ÌäÂêÈÖ¹æ¤Î²òÅú¹àÌÜ¤ò½ĞÎÏ (ÆâÉôÌ¿Îá)
-% ½ñ¼°¡§\@printanswer[¥ª¥×¥·¥ç¥ó]{ÌäÂêÈÖ¹æ}{²ş¹ÔÈÖ¹æ}
-% ÀâÌÀ¡§»ØÄê¤·¤¿ÌäÂêÈÖ¹æ¤Î²òÅú¹àÌÜ¤ò½ĞÎÏ¤¹¤ë¡£²ş¹ÔÈÖ¹æ¤Ë»ØÄê¤·¤¿²òÅú¹àÌÜ¤ÎÁ°¤Ç²ş¹Ô¤¹¤ë
-% ¥ª¥×¥·¥ç¥ó¡§
-% [a] Á´¤ÆÉ½¼¨(¥Ç¥Õ¥©¥ë¥È), [c] ÀµÅú¤Î¤ßÉ½¼¨, [s] ²òÀÏ¥â¡¼¥É
+% æ©Ÿèƒ½ï¼šæŒ‡å®šã—ãŸå•é¡Œç•ªå·ã®è§£ç­”é …ç›®ã‚’å‡ºåŠ› (å†…éƒ¨å‘½ä»¤)
+% æ›¸å¼ï¼š\@printanswer[ã‚ªãƒ—ã‚·ãƒ§ãƒ³]{å•é¡Œç•ªå·}{æ”¹è¡Œç•ªå·}
+% èª¬æ˜ï¼šæŒ‡å®šã—ãŸå•é¡Œç•ªå·ã®è§£ç­”é …ç›®ã‚’å‡ºåŠ›ã™ã‚‹ã€‚æ”¹è¡Œç•ªå·ã«æŒ‡å®šã—ãŸè§£ç­”é …ç›®ã®å‰ã§æ”¹è¡Œã™ã‚‹
+% ã‚ªãƒ—ã‚·ãƒ§ãƒ³ï¼š
+% [a] å…¨ã¦è¡¨ç¤º(ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆ), [c] æ­£ç­”ã®ã¿è¡¨ç¤º, [s] è§£æãƒ¢ãƒ¼ãƒ‰
 \newcounter{BB@PA@i}
 \newcounter{BB@PA@j}
 \newcounter{BB@PA@k}
@@ -369,11 +369,11 @@
 \renewcommand{\baselinestretch}{2}\selectfont
 \edef\BB@PA@tmp{BB@answer[#2]}%
 \edef\BB@PA@tmpb{BB@correctnum[#2]}%
-\setcounter{BB@PA@i}{0}% ²òÅú¹àÌÜÈÖ¹æ
-\setcounter{BB@PA@n}{\@nameuse{size\BB@PA@tmp}}% ²òÅú¹àÌÜ¿ô
+\setcounter{BB@PA@i}{0}% è§£ç­”é …ç›®ç•ªå·
+\setcounter{BB@PA@n}{\@nameuse{size\BB@PA@tmp}}% è§£ç­”é …ç›®æ•°
 \@whilenum\c@BB@PA@i<\c@BB@PA@n\do{%
-\setcounter{BB@PA@j}{1}% 1 ¤Ê¤é¹àÌÜ¤òÉ½¼¨
-\setcounter{BB@PA@k}{0}% 1 ¤Ê¤é¹àÌÜ¤òfbox¤ËÆş¤ì¤ë
+\setcounter{BB@PA@j}{1}% 1 ãªã‚‰é …ç›®ã‚’è¡¨ç¤º
+\setcounter{BB@PA@k}{0}% 1 ãªã‚‰é …ç›®ã‚’fboxã«å…¥ã‚Œã‚‹
 \CompareVec{\BB@PA@tmpb}{\the\c@BB@PA@i}%
 \ifnum\c@CMV@result=1%
 \if#1s\setcounter{BB@PA@k}{1}\fi%
@@ -384,7 +384,7 @@
 \ifnum\c@BB@PA@j=1%
 \protected@edef\BB@PA@tmpc{(\@nameuse{BB@anstitle[\the\c@BB@PA@i]})}%
 \protected@edef\BB@PA@tmpd{\@nameuse{\BB@PA@tmp[\the\c@BB@PA@i]}}%
-% ²ş¹Ô
+% æ”¹è¡Œ
 \ifnum\c@BB@PA@i=#3\par\medskip\fi%
 %
 \ifnum\c@BB@PA@k=1%
@@ -392,7 +392,7 @@
 \else%
 \BB@PA@tmpc~\BB@PA@tmpd%
 \fi%
-% ²òÀÏ¥â¡¼¥É¤Î»ş¤Ï²óÅú¿ô¤âÉ½¼¨
+% è§£æãƒ¢ãƒ¼ãƒ‰ã®æ™‚ã¯å›ç­”æ•°ã‚‚è¡¨ç¤º
 \if#1s%
 ~[\@nameuse{BB@distrib-#2-\the\c@BB@PA@i}/\the\c@BB@totalpeople]%
 \fi%
@@ -404,9 +404,9 @@
 }
 
 %%%%%%%%%%%%%%%%%%%%%%
-% µ¡Ç½¡§½é´ü²½ (Ì¿Îá)
-% ½ñ¼°¡§\initbb{Íğ¿ô¤Î¼ï}{ÂĞ¾İ¥¯¥é¥¹}{»î¸³Ì¾}{²ÊÌÜÌ¾}{ÆüÉÕ}{¶µ°÷}
-% ÀâÌÀ¡§½é´ü²½¤ò¹Ô¤¦¡£²òÅú¹àÌÜ¤Î¥·¥ã¥Ã¥Õ¥ë¤ò¹Ô¤¦¾ì¹ç¤Ë¤ÏÍğ¿ô¤Î¼ï¤Ï¾ÊÎ¬ÉÔ²Ä¤«¤Ä»î¸³¤´¤È¤ËÊÑ¹¹¤¹¤ëÉ¬Í×¤¬¤¢¤ë¡£
+% æ©Ÿèƒ½ï¼šåˆæœŸåŒ– (å‘½ä»¤)
+% æ›¸å¼ï¼š\initbb{ä¹±æ•°ã®ç¨®}{å¯¾è±¡ã‚¯ãƒ©ã‚¹}{è©¦é¨“å}{ç§‘ç›®å}{æ—¥ä»˜}{æ•™å“¡}
+% èª¬æ˜ï¼šåˆæœŸåŒ–ã‚’è¡Œã†ã€‚è§£ç­”é …ç›®ã®ã‚·ãƒ£ãƒƒãƒ•ãƒ«ã‚’è¡Œã†å ´åˆã«ã¯ä¹±æ•°ã®ç¨®ã¯çœç•¥ä¸å¯ã‹ã¤è©¦é¨“ã”ã¨ã«å¤‰æ›´ã™ã‚‹å¿…è¦ãŒã‚ã‚‹ã€‚
 \newcommand{\initbb}[6]{%
 \SEED{#1}
 \def\BB@class{#2}
@@ -420,30 +420,30 @@
 }
 
 %%%%%%%%%%%%%%%%%%%%%%
-% µ¡Ç½¡§»î¸³¥¿¥¤¥È¥ëÉ½¼¨ (Ì¿Îá)
-% ½ñ¼°¡§\bbtitle
-% ÀâÌÀ¡§»î¸³¥¿¥¤¥È¥ë¤òÉ½¼¨¤¹¤ë¡£
+% æ©Ÿèƒ½ï¼šè©¦é¨“ã‚¿ã‚¤ãƒˆãƒ«è¡¨ç¤º (å‘½ä»¤)
+% æ›¸å¼ï¼š\bbtitle
+% èª¬æ˜ï¼šè©¦é¨“ã‚¿ã‚¤ãƒˆãƒ«ã‚’è¡¨ç¤ºã™ã‚‹ã€‚
 \newcommand{\bbtitle}{%
 \textbf{\BB@class\quad\BB@exam\quad\BB@subject\hfill\BB@date\quad\BB@teacher}
 }
 
 %%%%%%%%%%%%%%%%%%%%%%
-% µ¡Ç½¡§ÂçÌä¸«½Ğ¤· (Ì¿Îá)
-% ½ñ¼°¡§\bbsection{¸«½Ğ¤·}
-% ÀâÌÀ¡§ÂçÌäÈÖ¹æ¤È¸«½Ğ¤·¤òÉ½¼¨¤¹¤ë¡£
+% æ©Ÿèƒ½ï¼šå¤§å•è¦‹å‡ºã— (å‘½ä»¤)
+% æ›¸å¼ï¼š\bbsection{è¦‹å‡ºã—}
+% èª¬æ˜ï¼šå¤§å•ç•ªå·ã¨è¦‹å‡ºã—ã‚’è¡¨ç¤ºã™ã‚‹ã€‚
 \newcommand{\bbsection}[1]{%
 \stepcounter{BB@section}%
-\AppendVec{BB@struct}{s}% BB@struct[] : ¹½Â¤ÍÑ¥Ù¥¯¥È¥ë¡¢'s'¤ÏÂçÌä¡¢'q'¤ÏÌäÂê
+\AppendVec{BB@struct}{s}% BB@struct[] : æ§‹é€ ç”¨ãƒ™ã‚¯ãƒˆãƒ«ã€'s'ã¯å¤§å•ã€'q'ã¯å•é¡Œ
 \noindent \textbf{[\the\c@BB@section] #1}
 \par\bigskip
 }
 
 %%%%%%%%%%%%%%%%%%%%%%
-% µ¡Ç½¡§ÌäÂêºîÀ® (´Ä¶­)
-% ½ñ¼°¡§\begin{makeq}{ÆÀÅÀ}{¥é¥ó¥À¥à¥·¥ã¥Ã¥Õ¥ë}{²òÅú¹àÌÜ¿ô}
-% ÀâÌÀ¡§²òÅú¹àÌÜ¤ò¥é¥ó¥À¥à¥·¥ã¥Ã¥Õ¥ë¤¹¤ë¾ì¹ç¤Ï2ÈÖÌÜ¤Î°ú¿ô¤ò1¡¢¤·¤Ê¤¤¤Ê¤é0¤òÆş¤ì¤ë¡£¥é¥ó¥À¥à¥·¥ã¥Ã¥Õ¥ë¤·¤Ê¤¤¾ì¹ç¤Ï3ÈÖÌÜ¤Î°ú¿ô¤ÏÌµ»ë¤¹¤ë
+% æ©Ÿèƒ½ï¼šå•é¡Œä½œæˆ (ç’°å¢ƒ)
+% æ›¸å¼ï¼š\begin{makeq}{å¾—ç‚¹}{ãƒ©ãƒ³ãƒ€ãƒ ã‚·ãƒ£ãƒƒãƒ•ãƒ«}{è§£ç­”é …ç›®æ•°}
+% èª¬æ˜ï¼šè§£ç­”é …ç›®ã‚’ãƒ©ãƒ³ãƒ€ãƒ ã‚·ãƒ£ãƒƒãƒ•ãƒ«ã™ã‚‹å ´åˆã¯2ç•ªç›®ã®å¼•æ•°ã‚’1ã€ã—ãªã„ãªã‚‰0ã‚’å…¥ã‚Œã‚‹ã€‚ãƒ©ãƒ³ãƒ€ãƒ ã‚·ãƒ£ãƒƒãƒ•ãƒ«ã—ãªã„å ´åˆã¯3ç•ªç›®ã®å¼•æ•°ã¯ç„¡è¦–ã™ã‚‹
 \newenvironment{makeq}[3]{%
-\AppendVec{BB@struct}{q}% BB@struct[] : ¹½Â¤ÍÑ¥Ù¥¯¥È¥ë¡¢'s'¤ÏÂçÌä¡¢'q'¤ÏÌäÂê
+\AppendVec{BB@struct}{q}% BB@struct[] : æ§‹é€ ç”¨ãƒ™ã‚¯ãƒˆãƒ«ã€'s'ã¯å¤§å•ã€'q'ã¯å•é¡Œ
 \ClearVec{BB@correct}%
 \ClearVec{BB@incorrect}%
 \setcounter{BB@sc}{#1}%
@@ -455,15 +455,15 @@
 \AppendVec{\BB@tmp}{-1}%
 \AppendVec{\BB@tmp}{-1}%
 \AppendVec{\BB@tmp}{-1}%
-\global\advance \c@BB@totalscore by #1% def, edef, advance, multiply, divide ¤Ï¶É½êÅª
+\global\advance \c@BB@totalscore by #1% def, edef, advance, multiply, divide ã¯å±€æ‰€çš„
 \relax%
 \noindent %
-ÌäÂê \the\c@BB@qnum\quad [\the\c@BB@sc ÅÀ]%
+å•é¡Œ \the\c@BB@qnum\quad [\the\c@BB@sc ç‚¹]%
 }%
 {%
 \expandafter\xdef\csname BB@score[\the\c@BB@qnum]\endcsname{\the\c@BB@sc}%
 %
-\ifnum\c@BB@rnd=1% ¥é¥ó¥À¥à¤Ë¥·¥ã¥Ã¥Õ¥ë¤·¤Æ¹àÌÜ¤òºîÀ®
+\ifnum\c@BB@rnd=1% ãƒ©ãƒ³ãƒ€ãƒ ã«ã‚·ãƒ£ãƒƒãƒ•ãƒ«ã—ã¦é …ç›®ã‚’ä½œæˆ
 \edef\BB@tmp{BB@answer[\the\c@BB@qnum]}%
 \edef\BB@tmpb{BB@correctnum[\the\c@BB@qnum]}%
 \ShuffleVec{BB@incorrect}%
@@ -480,10 +480,10 @@
 \stepcounter{BB@i}}%
 \SortVec{\BB@tmpb}%
 \fi%
-% \ShowVec{\BB@tmp}% debug½ĞÎÏ
-% \ShowVec{\BB@tmpb}% debug½ĞÎÏ
+% \ShowVec{\BB@tmp}% debugå‡ºåŠ›
+% \ShowVec{\BB@tmpb}% debugå‡ºåŠ›
 %
-% ½ĞÎÏ
+% å‡ºåŠ›
 \ifnum\c@BB@showanswer=1%
 \ifnum\c@BB@analysis=1%
 \@printanswer[s]{\the\c@BB@qnum}{\@nameuse{BB@paranswer[\the\c@BB@qnum][1]}}%
@@ -496,17 +496,17 @@
 }
 
 %%%%%%%%%%%%%%%%%%%%%%
-% µ¡Ç½¡§ÌäÂêÈÖ¹æÉ½¼¨ (Ì¿Îá)
-% ½ñ¼°¡§\bbqnum
-% ÀâÌÀ¡§¸½ºß¤ÎÌäÂêÈÖ¹æ¤òÉ½¼¨¤¹¤ë¡£
+% æ©Ÿèƒ½ï¼šå•é¡Œç•ªå·è¡¨ç¤º (å‘½ä»¤)
+% æ›¸å¼ï¼š\bbqnum
+% èª¬æ˜ï¼šç¾åœ¨ã®å•é¡Œç•ªå·ã‚’è¡¨ç¤ºã™ã‚‹ã€‚
 \newcommand{\bbqnum}{%
 \the\c@BB@qnum%
 }
 
 %%%%%%%%%%%%%%%%%%%%%%
-% µ¡Ç½¡§²òÅú¹àÌÜ¤òÉ½¼¨¤·¤Ê¤¤ (Ì¿Îá)
-% ½ñ¼°¡§\bbnoanswer
-% ÀâÌÀ¡§²òÅú¹àÌÜ¤òÉ½¼¨¤·¤Ê¤¤¡£makeq ´Ä¶­¤ÎÃæ¤Ç»ØÄê¤¹¤ë¡£
+% æ©Ÿèƒ½ï¼šè§£ç­”é …ç›®ã‚’è¡¨ç¤ºã—ãªã„ (å‘½ä»¤)
+% æ›¸å¼ï¼š\bbnoanswer
+% èª¬æ˜ï¼šè§£ç­”é …ç›®ã‚’è¡¨ç¤ºã—ãªã„ã€‚makeq ç’°å¢ƒã®ä¸­ã§æŒ‡å®šã™ã‚‹ã€‚
 \newcommand{\bbnoanswer}{%
 \ifnum\c@BB@analysis=0%
 \setcounter{BB@showanswer}{0}%
@@ -514,46 +514,46 @@
 }
 
 %%%%%%%%%%%%%%%%%%%%%%
-% µ¡Ç½¡§»ØÄê¤·¤¿²òÅú¹àÌÜ¤Î¸å¤Ç²ş¹Ô¤¹¤ë (Ì¿Îá)
-% ½ñ¼°¡§\bbparanswer{ÌäÂêÍÑ»æ}{²òÀÏ¥â¡¼¥É}{²òÅúÍÑ»æ}
-% ÀâÌÀ¡§»ØÄê¤·¤¿²òÅú¹àÌÜ¤Î¸å¤Ç²ş¹Ô¤¹¤ë¡£³ÆÍÑ»æ¤ä¥â¡¼¥ÉÊÌ¤Ë»ØÄê½ĞÍè¤ë¡£²ş¹Ô¤·¤Ê¤¤¾ì¹ç¤Ï-1¤ò»ØÄê¤¹¤ë¡£makeq ´Ä¶­¤ÎÃæ¤Ç»ØÄê¤¹¤ë¡£
+% æ©Ÿèƒ½ï¼šæŒ‡å®šã—ãŸè§£ç­”é …ç›®ã®å¾Œã§æ”¹è¡Œã™ã‚‹ (å‘½ä»¤)
+% æ›¸å¼ï¼š\bbparanswer{å•é¡Œç”¨ç´™}{è§£æãƒ¢ãƒ¼ãƒ‰}{è§£ç­”ç”¨ç´™}
+% èª¬æ˜ï¼šæŒ‡å®šã—ãŸè§£ç­”é …ç›®ã®å¾Œã§æ”¹è¡Œã™ã‚‹ã€‚å„ç”¨ç´™ã‚„ãƒ¢ãƒ¼ãƒ‰åˆ¥ã«æŒ‡å®šå‡ºæ¥ã‚‹ã€‚æ”¹è¡Œã—ãªã„å ´åˆã¯-1ã‚’æŒ‡å®šã™ã‚‹ã€‚makeq ç’°å¢ƒã®ä¸­ã§æŒ‡å®šã™ã‚‹ã€‚
 \newcommand{\bbparanswer}[3]{%
 \edef\BB@tmp{BB@paranswer[\the\c@BB@qnum]}%
 \SetVec{\BB@tmp}{0}{#1}%
 \SetVec{\BB@tmp}{1}{#2}%
 \SetVec{\BB@tmp}{2}{#3}%
-% \ShowVec{\BB@tmp} %debug½ĞÎÏ
+% \ShowVec{\BB@tmp} %debugå‡ºåŠ›
 }
 
 %%%%%%%%%%%%%%%%%%%%%%
-% µ¡Ç½¡§²òÅú¹àÌÜ¤Î½ÅÊ£¤ò¥Á¥§¥Ã¥¯¤·¤Ê¤¤ (Ì¿Îá)
-% ½ñ¼°¡§\bbnodupcheck
-% ÀâÌÀ¡§²òÅú¹àÌÜ¤Î½ÅÊ£¤ò¥Á¥§¥Ã¥¯¤·¤Ê¤¤¡£makeq ´Ä¶­¤ÎÃæ¤Ç»ØÄê¤¹¤ë¡£
+% æ©Ÿèƒ½ï¼šè§£ç­”é …ç›®ã®é‡è¤‡ã‚’ãƒã‚§ãƒƒã‚¯ã—ãªã„ (å‘½ä»¤)
+% æ›¸å¼ï¼š\bbnodupcheck
+% èª¬æ˜ï¼šè§£ç­”é …ç›®ã®é‡è¤‡ã‚’ãƒã‚§ãƒƒã‚¯ã—ãªã„ã€‚makeq ç’°å¢ƒã®ä¸­ã§æŒ‡å®šã™ã‚‹ã€‚
 \newcommand{\bbnodupcheck}{%
 \setcounter{BB@dupcheck}{0}%
 }
 
 %%%%%%%%%%%%%%%%%%%%%%
-% µ¡Ç½¡§ÀµÅú¤Î»ØÄê (Ì¿Îá)
-% ½ñ¼°¡§\cor{ÃÍ}
-% ÀâÌÀ¡§makeq´Ä¶­¤ÎÃæ¤ÇincorÌ¿Îá¤È¥»¥Ã¥È¤Ç»ÈÍÑ¤¹¤ë¡£ÀµÅú¤¬1¤Ä¤Î¾ì¹ç¤ÏÂ¿»èÁªÂò¡¢2¤Ä°Ê¾å¤Î¾ì¹ç¤ÏÊ£¿ô²óÅúÌäÂê¤È¤Ê¤ë¡£¹àÌÜ¤ò¥é¥ó¥À¥à¥·¥ã¥Ã¥Õ¥ë¤·¤Ê¤¤¾ì¹ç¤Ïcor¤Èincor¤Î½ç¤È¿ô¤Ë½¾¤Ã¤Æ¹àÌÜ¤òºîÀ®¤¹¤ë¡£¥é¥ó¥À¥à¥·¥ã¥Ã¥Õ¥ë¤¹¤ë¾ì¹ç¤Ïcor¤Èincor¤Î½çÈÖ¤òÌµ»ë¤¹¤ë¡£
+% æ©Ÿèƒ½ï¼šæ­£ç­”ã®æŒ‡å®š (å‘½ä»¤)
+% æ›¸å¼ï¼š\cor{å€¤}
+% èª¬æ˜ï¼šmakeqç’°å¢ƒã®ä¸­ã§incorå‘½ä»¤ã¨ã‚»ãƒƒãƒˆã§ä½¿ç”¨ã™ã‚‹ã€‚æ­£ç­”ãŒ1ã¤ã®å ´åˆã¯å¤šè‚¢é¸æŠã€2ã¤ä»¥ä¸Šã®å ´åˆã¯è¤‡æ•°å›ç­”å•é¡Œã¨ãªã‚‹ã€‚é …ç›®ã‚’ãƒ©ãƒ³ãƒ€ãƒ ã‚·ãƒ£ãƒƒãƒ•ãƒ«ã—ãªã„å ´åˆã¯corã¨incorã®é †ã¨æ•°ã«å¾“ã£ã¦é …ç›®ã‚’ä½œæˆã™ã‚‹ã€‚ãƒ©ãƒ³ãƒ€ãƒ ã‚·ãƒ£ãƒƒãƒ•ãƒ«ã™ã‚‹å ´åˆã¯corã¨incorã®é †ç•ªã‚’ç„¡è¦–ã™ã‚‹ã€‚
 \newcommand{\cor}[1]{%
 \edef\BB@tmp{BB@answer[\the\c@BB@qnum]}%
 \edef\BB@tmpb{BB@correctnum[\the\c@BB@qnum]}%
 %
-\ifnum\c@BB@rnd=1% ¥é¥ó¥À¥à¥·¥ã¥Ã¥Õ¥ë
+\ifnum\c@BB@rnd=1% ãƒ©ãƒ³ãƒ€ãƒ ã‚·ãƒ£ãƒƒãƒ•ãƒ«
 %
-\ifnum\c@BB@dupcheck=1% ½ÅÊ£¥Á¥§¥Ã¥¯
+\ifnum\c@BB@dupcheck=1% é‡è¤‡ãƒã‚§ãƒƒã‚¯
 \CompareVec{BB@correct}{#1}%
 \ifnum\c@CMV@result=0%
 \CompareVec{BB@incorrect}{#1}%
 \ifnum\c@CMV@result=0%
 \AppendVec{BB@correct}{#1}%
 \else%
-\AppendVec{BB@correct}{¥¨¥é¡¼[cor]:½ÅÊ£(#1)}%
+\AppendVec{BB@correct}{ã‚¨ãƒ©ãƒ¼[cor]:é‡è¤‡(#1)}%
 \fi%
 \else%
-\AppendVec{BB@correct}{¥¨¥é¡¼[cor]:½ÅÊ£(#1)}%
+\AppendVec{BB@correct}{ã‚¨ãƒ©ãƒ¼[cor]:é‡è¤‡(#1)}%
 \fi%
 \else%
 \AppendVec{BB@correct}{#1}%
@@ -567,74 +567,74 @@
 \ifnum\c@CMV@result=1\relax\else\stepcounter{BB@i}\fi%
 }%
 \AppendVec{\BB@tmpb}{\the\c@MOD@result}%
-% ¥é¥ó¥À¥à¥·¥ã¥Ã¥Õ¥ë½ª¤ï¤ê
+% ãƒ©ãƒ³ãƒ€ãƒ ã‚·ãƒ£ãƒƒãƒ•ãƒ«çµ‚ã‚ã‚Š
 %
-\else% ½çÈÖÄÌ¤ê
+\else% é †ç•ªé€šã‚Š
 \if t\@nameuse{use\BB@tmp}%
 \AppendVec{\BB@tmpb}{\@nameuse{size\BB@tmp}}%
 \else%
 \AppendVec{\BB@tmpb}{0}%
 \fi%
 %
-\ifnum\c@BB@dupcheck=1% ½ÅÊ£¥Á¥§¥Ã¥¯
+\ifnum\c@BB@dupcheck=1% é‡è¤‡ãƒã‚§ãƒƒã‚¯
 \CompareVec{\BB@tmp}{#1}%
 \ifnum\c@CMV@result=0%
 \AppendVec{\BB@tmp}{#1}%
 \else%
-\AppendVec{\BB@tmp}{¥¨¥é¡¼[cor]:½ÅÊ£(#1)}%
+\AppendVec{\BB@tmp}{ã‚¨ãƒ©ãƒ¼[cor]:é‡è¤‡(#1)}%
 \fi%
 \else%
 \AppendVec{\BB@tmp}{#1}%
 \fi%
-\fi% ½çÈÖÄÌ¤ê½ª¤ï¤ê
+\fi% é †ç•ªé€šã‚Šçµ‚ã‚ã‚Š
 }
 
 %%%%%%%%%%%%%%%%%%%%%%
-% µ¡Ç½¡§¸íÅú¤Î»ØÄê (Ì¿Îá)
-% ½ñ¼°¡§\incor{ÃÍ}
-% ÀâÌÀ¡§makeq´Ä¶­¤ÎÃæ¤ÇcorÌ¿Îá¤È¥»¥Ã¥È¤Ç»ÈÍÑ¤¹¤ë¡£¹àÌÜ¤ò¥é¥ó¥À¥à¥·¥ã¥Ã¥Õ¥ë¤¹¤ë¾ì¹ç¡¢incor¤Ï(makeq¤Î°ú¿ô¤Ç»ØÄê¤·¤¿¹àÌÜ¿ô - cor¤Î¿ô)°Ê¾å¤ò»ØÄê¤Ç¤­¤ë¡£¤Ş¤¿cor¤Èincor¤Î½çÈÖ¤ÏÌµ»ë¤¹¤ë¡£
+% æ©Ÿèƒ½ï¼šèª¤ç­”ã®æŒ‡å®š (å‘½ä»¤)
+% æ›¸å¼ï¼š\incor{å€¤}
+% èª¬æ˜ï¼šmakeqç’°å¢ƒã®ä¸­ã§corå‘½ä»¤ã¨ã‚»ãƒƒãƒˆã§ä½¿ç”¨ã™ã‚‹ã€‚é …ç›®ã‚’ãƒ©ãƒ³ãƒ€ãƒ ã‚·ãƒ£ãƒƒãƒ•ãƒ«ã™ã‚‹å ´åˆã€incorã¯(makeqã®å¼•æ•°ã§æŒ‡å®šã—ãŸé …ç›®æ•° - corã®æ•°)ä»¥ä¸Šã‚’æŒ‡å®šã§ãã‚‹ã€‚ã¾ãŸcorã¨incorã®é †ç•ªã¯ç„¡è¦–ã™ã‚‹ã€‚
 \newcommand{\incor}[1]{%
-\ifnum\c@BB@rnd=1% ¥é¥ó¥À¥à¥·¥ã¥Ã¥Õ¥ë
-\ifnum\c@BB@dupcheck=1% ½ÅÊ£¥Á¥§¥Ã¥¯
+\ifnum\c@BB@rnd=1% ãƒ©ãƒ³ãƒ€ãƒ ã‚·ãƒ£ãƒƒãƒ•ãƒ«
+\ifnum\c@BB@dupcheck=1% é‡è¤‡ãƒã‚§ãƒƒã‚¯
 \CompareVec{BB@correct}{#1}%
 \ifnum\c@CMV@result=0%
 \CompareVec{BB@incorrect}{#1}%
 \ifnum\c@CMV@result=0%
 \AppendVec{BB@incorrect}{#1}%
 \else%
-\AppendVec{BB@incorrect}{¥¨¥é¡¼[incor]:½ÅÊ£(#1)}%
+\AppendVec{BB@incorrect}{ã‚¨ãƒ©ãƒ¼[incor]:é‡è¤‡(#1)}%
 \fi%
 \else%
-\AppendVec{BB@incorrect}{¥¨¥é¡¼[incor]:½ÅÊ£(#1)}%
+\AppendVec{BB@incorrect}{ã‚¨ãƒ©ãƒ¼[incor]:é‡è¤‡(#1)}%
 \fi%
 \else%
 \AppendVec{BB@incorrect}{#1}%
 \fi%
-% ¥é¥ó¥À¥à¥·¥ã¥Ã¥Õ¥ë½ª¤ï¤ê
+% ãƒ©ãƒ³ãƒ€ãƒ ã‚·ãƒ£ãƒƒãƒ•ãƒ«çµ‚ã‚ã‚Š
 %
-\else% ½çÈÖÄÌ¤ê
+\else% é †ç•ªé€šã‚Š
 \edef\BB@tmp{BB@answer[\the\c@BB@qnum]}%
-\ifnum\c@BB@dupcheck=1% ½ÅÊ£¥Á¥§¥Ã¥¯
+\ifnum\c@BB@dupcheck=1% é‡è¤‡ãƒã‚§ãƒƒã‚¯
 \CompareVec{\BB@tmp}{#1}%
 \ifnum\c@CMV@result=0%
 \AppendVec{\BB@tmp}{#1}%
 \else%
-\AppendVec{\BB@tmp}{¥¨¥é¡¼[incor]:½ÅÊ£(#1)}%
+\AppendVec{\BB@tmp}{ã‚¨ãƒ©ãƒ¼[incor]:é‡è¤‡(#1)}%
 \fi%
 \else%
 \AppendVec{\BB@tmp}{#1}%
 \fi%
-\fi% ½çÈÖÄÌ¤ê½ª¤ï¤ê
+\fi% é †ç•ªé€šã‚Šçµ‚ã‚ã‚Š
 }
 
 %%%%%%%%%%%%%%%%%%%%%%
-% µ¡Ç½¡§ÀµÅú¤Ë¥é¥Ù¥ë¤òÉÕ¤±¤ë (Ì¿Îá)
-% ½ñ¼°¡§\clabel[¥ª¥×¥·¥ç¥ó]{¥é¥Ù¥ëÌ¾}{ÃÍ}
-% ¥ª¥×¥·¥ç¥ó¡§
-% [l] ¥é¥Ù¥ëÌ¾¤À¤±É½¼¨(¥Ç¥Õ¥©¥ë¥È), [f] ¥é¥Ù¥ëÌ¾¤òfbox¤Ç°Ï¤à, [n] ²¿¤âÉ½¼¨¤·¤Ê¤¤
-% ÀâÌÀ¡§makeq´Ä¶­³°¤ÇÀµÅú¤ò»ØÄê¤¹¤ëºİ¤Ë¤½¤ÎÃÍ¤Ë¥é¥Ù¥ë¤òÉÕ¤±¤ë¡£crefÌ¿Îá¤ÈÁÈ¤ß¹ç¤ï¤»¤Æ»ÈÍÑ¤¹¤ë¡£¥ª¥×¥·¥ç¥ó¤Çclabel¤Î¤¢¤ë¾ì½ê¤Ë²¿¤òÉ½¼¨¤¹¤ë¤«»ØÄê¤Ç¤­¤ë¡£
+% æ©Ÿèƒ½ï¼šæ­£ç­”ã«ãƒ©ãƒ™ãƒ«ã‚’ä»˜ã‘ã‚‹ (å‘½ä»¤)
+% æ›¸å¼ï¼š\clabel[ã‚ªãƒ—ã‚·ãƒ§ãƒ³]{ãƒ©ãƒ™ãƒ«å}{å€¤}
+% ã‚ªãƒ—ã‚·ãƒ§ãƒ³ï¼š
+% [l] ãƒ©ãƒ™ãƒ«åã ã‘è¡¨ç¤º(ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆ), [f] ãƒ©ãƒ™ãƒ«åã‚’fboxã§å›²ã‚€, [n] ä½•ã‚‚è¡¨ç¤ºã—ãªã„
+% èª¬æ˜ï¼šmakeqç’°å¢ƒå¤–ã§æ­£ç­”ã‚’æŒ‡å®šã™ã‚‹éš›ã«ãã®å€¤ã«ãƒ©ãƒ™ãƒ«ã‚’ä»˜ã‘ã‚‹ã€‚crefå‘½ä»¤ã¨çµ„ã¿åˆã‚ã›ã¦ä½¿ç”¨ã™ã‚‹ã€‚ã‚ªãƒ—ã‚·ãƒ§ãƒ³ã§clabelã®ã‚ã‚‹å ´æ‰€ã«ä½•ã‚’è¡¨ç¤ºã™ã‚‹ã‹æŒ‡å®šã§ãã‚‹ã€‚
 \newcommand{\clabel}[3][l]{%
-\relax% Æş¤ì¤Ê¤¤¤Èifmmode¤¬Àµ¤·¤¯Æ°¤«¤Ê¤¤
+\relax% å…¥ã‚Œãªã„ã¨ifmmodeãŒæ­£ã—ãå‹•ã‹ãªã„
 \ifmmode%
 \global\@namedef{BB@label#2}{$#3$}%
 \else%
@@ -650,9 +650,9 @@
 }
 
 %%%%%%%%%%%%%%%%%%%%%%
-% µ¡Ç½¡§ÀµÅú¤Ë¸½ºß¤ÎÌäÂêÈÖ¹æ¤Î¥é¥Ù¥ë¤òÉÕ¤±¤ë (Ì¿Îá)
-% ½ñ¼°¡§\clabelqnum[¥ª¥×¥·¥ç¥ó]{¥ª¥Õ¥»¥Ã¥È}{ÃÍ}
-% ÀâÌÀ¡§clabelÌ¿Îá¤Î¥é¥Ù¥ë¤È¤·¤Æ¡Ö¸½ºß¤ÎÌäÂêÈÖ¹æ + ¥ª¥Õ¥»¥Ã¥È¡×¤ÎÃÍ¤ò»ØÄê¤¹¤ë¡£¤½¤ì°Ê³°¤ÏclabelÌ¿Îá¤ÈÆ±¤¸Æ°ºî¤ò¤¹¤ë¡£
+% æ©Ÿèƒ½ï¼šæ­£ç­”ã«ç¾åœ¨ã®å•é¡Œç•ªå·ã®ãƒ©ãƒ™ãƒ«ã‚’ä»˜ã‘ã‚‹ (å‘½ä»¤)
+% æ›¸å¼ï¼š\clabelqnum[ã‚ªãƒ—ã‚·ãƒ§ãƒ³]{ã‚ªãƒ•ã‚»ãƒƒãƒˆ}{å€¤}
+% èª¬æ˜ï¼šclabelå‘½ä»¤ã®ãƒ©ãƒ™ãƒ«ã¨ã—ã¦ã€Œç¾åœ¨ã®å•é¡Œç•ªå· + ã‚ªãƒ•ã‚»ãƒƒãƒˆã€ã®å€¤ã‚’æŒ‡å®šã™ã‚‹ã€‚ãã‚Œä»¥å¤–ã¯clabelå‘½ä»¤ã¨åŒã˜å‹•ä½œã‚’ã™ã‚‹ã€‚
 \newcounter{BB@CQ@i}
 \newcommand{\clabelqnum}[3][l]{%
 \setcounter{BB@CQ@i}{\c@BB@qnum}%
@@ -662,61 +662,61 @@
 
 
 %%%%%%%%%%%%%%%%%%%%%%
-% µ¡Ç½¡§¥é¥Ù¥ë¤òÉÕ¤±¤¿ÀµÅú¤ò»ØÄê (Ì¿Îá)
-% ½ñ¼°¡§\cref{¥é¥Ù¥ëÌ¾}
-% ÀâÌÀ¡§makeq´Ä¶­Æâ¤ÇclabelÌ¿Îá¤Ç¥é¥Ù¥ë¤òÉÕ¤±¤¿ÀµÅú¤ò»ØÄê¤¹¤ë¡£¤½¤ì°Ê³°¤ÏcorÌ¿Îá¤ÈÆ±¤¸Æ°ºî¤ò¤¹¤ë¡£
+% æ©Ÿèƒ½ï¼šãƒ©ãƒ™ãƒ«ã‚’ä»˜ã‘ãŸæ­£ç­”ã‚’æŒ‡å®š (å‘½ä»¤)
+% æ›¸å¼ï¼š\cref{ãƒ©ãƒ™ãƒ«å}
+% èª¬æ˜ï¼šmakeqç’°å¢ƒå†…ã§clabelå‘½ä»¤ã§ãƒ©ãƒ™ãƒ«ã‚’ä»˜ã‘ãŸæ­£ç­”ã‚’æŒ‡å®šã™ã‚‹ã€‚ãã‚Œä»¥å¤–ã¯corå‘½ä»¤ã¨åŒã˜å‹•ä½œã‚’ã™ã‚‹ã€‚
 \newcommand{\cref}[1]{%
 \if t\@nameuse{BB@uselabel#1}%
 \cor{\@nameuse{BB@label#1}}%
 \else%
-\cor{¥¨¥é¡¼[cref]:¥é¥Ù¥ë»ØÄêÌµ¤·}%
+\cor{ã‚¨ãƒ©ãƒ¼[cref]:ãƒ©ãƒ™ãƒ«æŒ‡å®šç„¡ã—}%
 \fi%
 }
 
 %%%%%%%%%%%%%%%%%%%%%%
-% µ¡Ç½¡§¸½ºß¤ÎÌäÂêÈÖ¹æ¤Î¥é¥Ù¥ë¤òÉÕ¤±¤¿ÀµÅú¤ò»ØÄê (Ì¿Îá)
-% ½ñ¼°¡§\crefqnum
-% ÀâÌÀ¡§crefÌ¿Îá¤Î¥é¥Ù¥ë¤È¤·¤Æ¡Ö¸½ºß¤ÎÌäÂêÈÖ¹æ ¡×¤ÎÃÍ¤ò»ØÄê¤¹¤ë¡£¤½¤ì°Ê³°¤ÏcrefÌ¿Îá¤ÈÆ±¤¸Æ°ºî¤ò¤¹¤ë¡£
+% æ©Ÿèƒ½ï¼šç¾åœ¨ã®å•é¡Œç•ªå·ã®ãƒ©ãƒ™ãƒ«ã‚’ä»˜ã‘ãŸæ­£ç­”ã‚’æŒ‡å®š (å‘½ä»¤)
+% æ›¸å¼ï¼š\crefqnum
+% èª¬æ˜ï¼šcrefå‘½ä»¤ã®ãƒ©ãƒ™ãƒ«ã¨ã—ã¦ã€Œç¾åœ¨ã®å•é¡Œç•ªå· ã€ã®å€¤ã‚’æŒ‡å®šã™ã‚‹ã€‚ãã‚Œä»¥å¤–ã¯crefå‘½ä»¤ã¨åŒã˜å‹•ä½œã‚’ã™ã‚‹ã€‚
 \newcommand{\crefqnum}{%
 \cref{\the\c@BB@qnum}%
 }
 
 %%%%%%%%%%%%%%%%%%%%%%
-% µ¡Ç½¡§¹ç·×ÆÀÅÀÉ½¼¨ (Ì¿Îá)
-% ½ñ¼°¡§\totalscore
-% ÀâÌÀ¡§¹ç·×ÆÀÅÀ¤ò±¦µÍ¤á¤ÇÉ½¼¨¤¹¤ë¡£
+% æ©Ÿèƒ½ï¼šåˆè¨ˆå¾—ç‚¹è¡¨ç¤º (å‘½ä»¤)
+% æ›¸å¼ï¼š\totalscore
+% èª¬æ˜ï¼šåˆè¨ˆå¾—ç‚¹ã‚’å³è©°ã‚ã§è¡¨ç¤ºã™ã‚‹ã€‚
 \newcommand{\totalscore}{%
 \par\bigskip
 \begin{flushright}
-\textbf{\fbox{·× \the\c@BB@totalscore ÅÀ}}
+\textbf{\fbox{è¨ˆ \the\c@BB@totalscore ç‚¹}}
 \end{flushright}
 }
 
 %%%%%%%%%%%%%%%%%%%%%%
-% µ¡Ç½¡§²òÅúÍÑ»æ¡¦ÌÏÈÏ²òÅúºîÀ® (Ì¿Îá)
-% ½ñ¼°¡§\makeanswersheet[¥ª¥×¥·¥ç¥ó]{²şÊÇ¤¹¤ëÌäÂêÈÖ¹æ}
-% ¥ª¥×¥·¥ç¥ó¡§
-% [a] ²òÅúÍÑ»æºîÀ®(¥Ç¥Õ¥©¥ë¥È), [c] ÌÏÈÏ²òÅúºîÀ®
-% ÀâÌÀ¡§¥ª¥Õ¥é¥¤¥óÍÑ¤Î²òÅúÍÑ»æËô¤ÏÌÏÈÏ²òÅú¤òºîÀ®¤¹¤ë¡£²şÊÇ¤·¤Æ¤«¤é2ÃÊÁÈ¤Ç²òÅúÍÑ»æ¤òºîÀ®¤¹¤ë¡£°ú¿ô¤Ç»ØÄê¤·¤¿ÌäÂêÈÖ¹æ¤Î¸å¤Ë¹¹¤Ë²şÊÇ¤òÆş¤ì¤ë¡£
+% æ©Ÿèƒ½ï¼šè§£ç­”ç”¨ç´™ãƒ»æ¨¡ç¯„è§£ç­”ä½œæˆ (å‘½ä»¤)
+% æ›¸å¼ï¼š\makeanswersheet[ã‚ªãƒ—ã‚·ãƒ§ãƒ³]{æ”¹é ã™ã‚‹å•é¡Œç•ªå·}
+% ã‚ªãƒ—ã‚·ãƒ§ãƒ³ï¼š
+% [a] è§£ç­”ç”¨ç´™ä½œæˆ(ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆ), [c] æ¨¡ç¯„è§£ç­”ä½œæˆ
+% èª¬æ˜ï¼šã‚ªãƒ•ãƒ©ã‚¤ãƒ³ç”¨ã®è§£ç­”ç”¨ç´™åˆã¯æ¨¡ç¯„è§£ç­”ã‚’ä½œæˆã™ã‚‹ã€‚æ”¹é ã—ã¦ã‹ã‚‰2æ®µçµ„ã§è§£ç­”ç”¨ç´™ã‚’ä½œæˆã™ã‚‹ã€‚å¼•æ•°ã§æŒ‡å®šã—ãŸå•é¡Œç•ªå·ã®å¾Œã«æ›´ã«æ”¹é ã‚’å…¥ã‚Œã‚‹ã€‚
 \newcommand{\makeanswersheet}[2][a]{%
 \twocolumn[%
 \bbtitle
 \begin{flushright}
 \textbf{%
 \if#1a%
-ÈÖ¹æ\hspace{4em} Ì¾Á°\hfill \fbox{·×»»¡¦²òÅúÍÑ»æ\quad\qquad  ÅÀ¡¿ \the\c@BB@totalscore ÅÀ}
+ç•ªå·\hspace{4em} åå‰\hfill \fbox{è¨ˆç®—ãƒ»è§£ç­”ç”¨ç´™\quad\qquad  ç‚¹ï¼ \the\c@BB@totalscore ç‚¹}
 \else%
-\fbox{ÌÏÈÏ²òÅú\quad  \the\c@BB@totalscore ÅÀ¡¿ \the\c@BB@totalscore ÅÀ}
+\fbox{æ¨¡ç¯„è§£ç­”\quad  \the\c@BB@totalscore ç‚¹ï¼ \the\c@BB@totalscore ç‚¹}
 \fi%
 }
 \end{flushright}
 ]
 {\footnotesize
-% \ShowVec{BB@struct} %debug½ĞÎÏ
-\setcounter{BB@i}{0}% ¥ë¡¼¥×ÍÑ
+% \ShowVec{BB@struct} %debugå‡ºåŠ›
+\setcounter{BB@i}{0}% ãƒ«ãƒ¼ãƒ—ç”¨
 \setcounter{BB@n}{\@nameuse{sizeBB@struct}}%
-\setcounter{BB@j}{0}% ÂçÌäÈÖ¹æ
-\setcounter{BB@k}{0}% ÌäÂêÈÖ¹æ
+\setcounter{BB@j}{0}% å¤§å•ç•ªå·
+\setcounter{BB@k}{0}% å•é¡Œç•ªå·
 \@whilenum\c@BB@i<\c@BB@n\do{%
 \if s\@nameuse{BB@struct[\the\c@BB@i]}%
 \stepcounter{BB@j}%
@@ -726,11 +726,11 @@
 \if q\@nameuse{BB@struct[\the\c@BB@i]}%
 \stepcounter{BB@k}%
 \noindent%
-ÌäÂê \the\c@BB@k\quad [\@nameuse{BB@score[\the\c@BB@k]} ÅÀ]%
+å•é¡Œ \the\c@BB@k\quad [\@nameuse{BB@score[\the\c@BB@k]} ç‚¹]%
 \if#1c%
-\@printanswer[c]{\the\c@BB@k}{-1}% ÌÏÈÏ²òÅú
+\@printanswer[c]{\the\c@BB@k}{-1}% æ¨¡ç¯„è§£ç­”
 \else%
-\@printanswer{\the\c@BB@k}{\@nameuse{BB@paranswer[\the\c@BB@k][2]}}% ²òÅúÍÑ»æ
+\@printanswer{\the\c@BB@k}{\@nameuse{BB@paranswer[\the\c@BB@k][2]}}% è§£ç­”ç”¨ç´™
 \fi%
 \ifnum\c@BB@k=#2\newpage\else\par\smallskip\fi%
 \fi%
@@ -740,15 +740,15 @@
 }
 
 %%%%%%%%%%%%%%%%%%%%%%
-% µ¡Ç½¡§¥Ö¥é¥Ã¥¯¥Ü¡¼¥É¥¢¥Ã¥×¥í¡¼¥ÉÍÑ¥Ğ¥Ã¥Á¥Õ¥¡¥¤¥ëºîÀ® (Ì¿Îá)
-% ½ñ¼°¡§\makeanswerfile{¥Õ¥¡¥¤¥ëÌ¾}
-% ÀâÌÀ¡§¥Ö¥é¥Ã¥¯¥Ü¡¼¥É¤ÇÌäÂê¤òºîÀ®¤¹¤ëºİ¤Ë¥¢¥Ã¥×¥í¡¼¥É¤¹¤ë¥Ğ¥Ã¥Á¥Õ¥¡¥¤¥ë¤òºîÀ®¤¹¤ë¡£
-% Ãí°Õ¡§¸½ºß¤Ï¤Ï¥¿¥Ö¥³¡¼¥É¤ÎÂå¤ï¤ê¤ËÊ¸»úÎó _TAB_ ¤ò½ĞÎÏ¤·¤Æ¤¤¤ë¤Î¤Ç¡¢ sed -e "s/_TAB_/\t/g" bb-tmp.txt > batch.txt ¤ÎÍÍ¤Ë_TAB_¤ò¥¿¥Ö¤ËÃÖ¤­´¹¤¨¤Æ¤«¤é¥¢¥Ã¥×¥í¡¼¥É¤¹¤ëÉ¬Í×¤¬¤¢¤ë¡£
+% æ©Ÿèƒ½ï¼šãƒ–ãƒ©ãƒƒã‚¯ãƒœãƒ¼ãƒ‰ã‚¢ãƒƒãƒ—ãƒ­ãƒ¼ãƒ‰ç”¨ãƒãƒƒãƒãƒ•ã‚¡ã‚¤ãƒ«ä½œæˆ (å‘½ä»¤)
+% æ›¸å¼ï¼š\makeanswerfile{ãƒ•ã‚¡ã‚¤ãƒ«å}
+% èª¬æ˜ï¼šãƒ–ãƒ©ãƒƒã‚¯ãƒœãƒ¼ãƒ‰ã§å•é¡Œã‚’ä½œæˆã™ã‚‹éš›ã«ã‚¢ãƒƒãƒ—ãƒ­ãƒ¼ãƒ‰ã™ã‚‹ãƒãƒƒãƒãƒ•ã‚¡ã‚¤ãƒ«ã‚’ä½œæˆã™ã‚‹ã€‚
+% æ³¨æ„ï¼šç¾åœ¨ã¯ã¯ã‚¿ãƒ–ã‚³ãƒ¼ãƒ‰ã®ä»£ã‚ã‚Šã«æ–‡å­—åˆ— _TAB_ ã‚’å‡ºåŠ›ã—ã¦ã„ã‚‹ã®ã§ã€ sed -e "s/_TAB_/\t/g" bb-tmp.txt > batch.txt ã®æ§˜ã«_TAB_ã‚’ã‚¿ãƒ–ã«ç½®ãæ›ãˆã¦ã‹ã‚‰ã‚¢ãƒƒãƒ—ãƒ­ãƒ¼ãƒ‰ã™ã‚‹å¿…è¦ãŒã‚ã‚‹ã€‚
 \newcommand{\makeanswerfile}[1]{%
-% \ShowVec{BB@struct} %debug½ĞÎÏ
-\setcounter{BB@i}{0}% ¥ë¡¼¥×ÍÑ
+% \ShowVec{BB@struct} %debugå‡ºåŠ›
+\setcounter{BB@i}{0}% ãƒ«ãƒ¼ãƒ—ç”¨
 \setcounter{BB@n}{\@nameuse{sizeBB@struct}}%
-\setcounter{BB@k}{0}% ÌäÂêÈÖ¹æ
+\setcounter{BB@k}{0}% å•é¡Œç•ªå·
 \@whilenum\c@BB@i<\c@BB@n\do{%
 %
 \if q\@nameuse{BB@struct[\the\c@BB@i]}%
@@ -757,9 +757,9 @@
 \edef\BB@tmpb{BB@correctnum[\the\c@BB@k]}%
 \setcounter{BB@nn}{\@nameuse{size\BB@tmpb}}%
 \ifnum\c@BB@nn=1%
-\edef\BB@tmpc{MC}% Â¿»èÁªÂò
+\edef\BB@tmpc{MC}% å¤šè‚¢é¸æŠ
 \else%
-\edef\BB@tmpc{MA}% Ê£¿ô²óÅú
+\edef\BB@tmpc{MA}% è¤‡æ•°å›ç­”
 \fi%
 \edef\BB@tmpc{\BB@tmpc _TAB_<span style="color: white;">}%
 \edef\BB@tmpc{\BB@tmpc\the\c@BB@k}%
@@ -782,28 +782,28 @@
 }
 
 %%%%%%%%%%%%%%%%%%%%%%
-% µ¡Ç½¡§²òÀÏ¥â¡¼¥É (Ì¿Îá)
-% ½ñ¼°¡§\analysismode{¼õ¸³¿Í¿ô}
-% ÀâÌÀ¡§²òÀÏ¥â¡¼¥É¤ËÊÑ¹¹¤¹¤ë¡£
+% æ©Ÿèƒ½ï¼šè§£æãƒ¢ãƒ¼ãƒ‰ (å‘½ä»¤)
+% æ›¸å¼ï¼š\analysismode{å—é¨“äººæ•°}
+% èª¬æ˜ï¼šè§£æãƒ¢ãƒ¼ãƒ‰ã«å¤‰æ›´ã™ã‚‹ã€‚
 \newcommand{\analysismode}[1]{%
 \setcounter{BB@analysis}{1}%
 \setcounter{BB@totalpeople}{#1}%
 }
 
 %%%%%%%%%%%%%%%%%%%%%%
-% µ¡Ç½¡§²òÅú¹àÌÜ¤òÁªÂò¤·¤¿¿Í¿ô (Ì¿Îá)
-% ½ñ¼°¡§\distrib{²òÅúÈÖ¹æ}{²òÅú¹àÌÜÈÖ¹æ}{¿Í¿ô}
-% ÀâÌÀ¡§²òÀÏ¥â¡¼¥É¤Ç»È¤¦¡£²òÅú¹àÌÜ¤òÁªÂò¤·¤¿¿Í¿ô¤ò¥»¥Ã¥È¤¹¤ë¡£
-% distrib.sh ¤È dist-template.ods ¤ò»È¤Ã¤Æ¥Ç¡¼¥¿¤òºîÀ®¤¹¤ë(¾Ü¤·¤¯¤Ï¤½¤ì¤é¤ÎÃæ¤ÎÀâÌÀ»²¾È)
-% ¥é¥ó¥À¥à¥·¥ã¥Ã¥Õ¥ë¥â¡¼¥É¤Ç¤â»ØÄê½ç¤ËÉ½¼¨¤¹¤ë¡£
+% æ©Ÿèƒ½ï¼šè§£ç­”é …ç›®ã‚’é¸æŠã—ãŸäººæ•° (å‘½ä»¤)
+% æ›¸å¼ï¼š\distrib{è§£ç­”ç•ªå·}{è§£ç­”é …ç›®ç•ªå·}{äººæ•°}
+% èª¬æ˜ï¼šè§£æãƒ¢ãƒ¼ãƒ‰ã§ä½¿ã†ã€‚è§£ç­”é …ç›®ã‚’é¸æŠã—ãŸäººæ•°ã‚’ã‚»ãƒƒãƒˆã™ã‚‹ã€‚
+% distrib.sh ã¨ dist-template.ods ã‚’ä½¿ã£ã¦ãƒ‡ãƒ¼ã‚¿ã‚’ä½œæˆã™ã‚‹(è©³ã—ãã¯ãã‚Œã‚‰ã®ä¸­ã®èª¬æ˜å‚ç…§)
+% ãƒ©ãƒ³ãƒ€ãƒ ã‚·ãƒ£ãƒƒãƒ•ãƒ«ãƒ¢ãƒ¼ãƒ‰ã§ã‚‚æŒ‡å®šé †ã«è¡¨ç¤ºã™ã‚‹ã€‚
 \newcommand{\distrib}[3]{%
 \global\@namedef{BB@distrib-#1-#2}{#3}%
 }
 
 %%%%%%%%%%%%%%%%%%%%%%
-% µ¡Ç½¡§²òÀÏ¥â¡¼¥É¤Ç¤Î¥³¥á¥ó¥È (Ì¿Îá)
-% ½ñ¼°¡§\analysiscomment{¥³¥á¥ó¥È1}{¥³¥á¥ó¥È2}
-% ÀâÌÀ¡§²òÀÏ¥â¡¼¥É»ş¤Ï¥³¥á¥ó¥È1¤òÉ½¼¨¤¹¤ë¡£¤½¤¦¤Ç¤Ê¤¤»ş¤Ï¥³¥á¥ó¥È2¤òÉ½¼¨¤¹¤ë¡£
+% æ©Ÿèƒ½ï¼šè§£æãƒ¢ãƒ¼ãƒ‰ã§ã®ã‚³ãƒ¡ãƒ³ãƒˆ (å‘½ä»¤)
+% æ›¸å¼ï¼š\analysiscomment{ã‚³ãƒ¡ãƒ³ãƒˆ1}{ã‚³ãƒ¡ãƒ³ãƒˆ2}
+% èª¬æ˜ï¼šè§£æãƒ¢ãƒ¼ãƒ‰æ™‚ã¯ã‚³ãƒ¡ãƒ³ãƒˆ1ã‚’è¡¨ç¤ºã™ã‚‹ã€‚ãã†ã§ãªã„æ™‚ã¯ã‚³ãƒ¡ãƒ³ãƒˆ2ã‚’è¡¨ç¤ºã™ã‚‹ã€‚
 \newcommand{\analysiscomment}[2]{%
 \ifnum\c@BB@analysis=1%
 #1%
